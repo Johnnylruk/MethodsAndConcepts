@@ -1,0 +1,44 @@
+@model List<StaffModel>
+
+@{
+    ViewBag.Title = "Staff Page";
+}
+
+<h2>Create Staff</h2>
+<a class="btn btn-success" asp-controller="Staff" asp-action="CreateStaff">Create</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Address</th>
+        <th scope="col">Date of Birth</th>
+        <th scope="col">Staff Role</th>
+        <th scope="col"></th>
+        
+    </tr>
+    </thead>   
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+        foreach (StaffModel staffs in Model)
+        {
+            <tr>
+                <th scope="row">@staffs.StaffId</th>
+                <td>@staffs.Name</td>
+                <td>@staffs.Email</td>
+                <td>@staffs.Mobile</td>
+                <td>@staffs.Address</td>
+                <td>@staffs.DateOfBirth.ToString("MM/dd/yyyy")</td>
+                <td>@Html.DisplayFor(staffItem => staffs.Access)</td>
+                <td>
+                    <a role="button" class="btn btn-warning" asp-route-id="@staffs.StaffId" asp-action="UpdateStaff" asp-controller="Staff">Update</a>
+                    <a role="button" class="btn btn-danger" asp-route-id="@staffs.StaffId" asp-action="DeleteStaff" asp-controller="Staff">Delete</a>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
