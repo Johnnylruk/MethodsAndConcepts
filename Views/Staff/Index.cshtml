@@ -3,7 +3,21 @@
 @{
     ViewBag.Title = "Staff Page";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-success" role="alert">
+    <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+    @TempData["SuccessMessage"]
+</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-danger" role="alert">
+    <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+    @TempData["ErrorMessage"]
 
+</div>
+}
 <h2>Create Staff</h2>
 <a class="btn btn-success" asp-controller="Staff" asp-action="CreateStaff">Create</a>
 <table class="table">

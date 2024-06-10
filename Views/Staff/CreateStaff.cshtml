@@ -1,9 +1,24 @@
+@using System.ComponentModel.DataAnnotations
 @using Lealthy_Hospital_Application_System.Enum
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model StaffModel
 
 @{
     ViewData["Title"] = "Create Staff";
 }
+
+@functions {
+public string GetEnumDisplayName(RoleAccessEnum role)
+{
+var displayAttribute = role.GetType()
+.GetField(role.ToString())
+.GetCustomAttributes(typeof(DisplayAttribute), false)
+.FirstOrDefault() as DisplayAttribute;
+
+return displayAttribute != null ? displayAttribute.Name : role.ToString();
+}
+}
+
 
 <h1>Create Staff</h1>
 <div class="text-center">
@@ -49,13 +64,12 @@
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Role</label>
-                                <select class="form-select" asp-for="Access">
+                                    <select class="form-select" asp-for="Access">
                                     <option value="" disabled selected>Select</option>
-                                    <option value="@RoleAccessEnum.Administrator" >Administrator</option>
-                                    <option value="@RoleAccessEnum.Receptionist" >Receptionist</option>
-                                    <option value="@RoleAccessEnum.Doctor">Doctor</option>
-                                    <option value="@RoleAccessEnum.Nurse">Nurse</option>
-                                    
+                                    @foreach (var role in Enum.GetValues(typeof(RoleAccessEnum)).Cast<RoleAccessEnum>())
+                                    {
+                                    <option value="@role">@GetEnumDisplayName(role)</option>
+                                    }
                                 </select>
                                 @Html.ValidationMessageFor(x => x.Access)
                             </div>

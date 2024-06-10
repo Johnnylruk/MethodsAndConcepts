@@ -43,13 +43,15 @@ public class StaffController : Controller
             if (ModelState.IsValid)
             {
                 _staffRepository.RegisterStaff(staffModel);
+                TempData["SuccessMessage"] = "Staff has been createted.";
                 return RedirectToAction("Index");
             }
 
             return View(staffModel);
         }
-        catch (Exception e)
+        catch (Exception error)
         {
+            TempData["SuccessMessage"] = $"Ops, could not create staff. Error: {error.Message}";
             return RedirectToAction("Index");
         }
     }
@@ -62,15 +64,16 @@ public class StaffController : Controller
             if (ModelState.IsValid)
             {
                 _staffRepository.UpdateStaff(staffModel);
+                TempData["SuccessMessage"] = "Staff has been updated.";
                 return RedirectToAction("Index");
             }
 
             return View(staffModel);
         }
-        catch (Exception e)
+        catch (Exception error)
         {
-            Console.WriteLine(e);
-            throw;
+            TempData["SuccessMessage"] = $"Ops, could not update staff. Error: {error.Message}";
+            return RedirectToAction("Index");
         }
     }
 
@@ -82,14 +85,16 @@ public class StaffController : Controller
             bool deleted = _staffRepository.DeleteStaff(staffModel.StaffId);
             if (deleted)
             {
+                TempData["SuccessMessage"] = "Staff has been deleted.";
                 return RedirectToAction("Index");
             }
+
+            return View(staffModel);
         }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        return RedirectToAction("Index");
+        catch (Exception error)
+        {
+            TempData["SuccessMessage"] = $"Ops, could not delete staff. Error: {error.Message}";
+            return RedirectToAction("Index");
+        }
     }
 }
