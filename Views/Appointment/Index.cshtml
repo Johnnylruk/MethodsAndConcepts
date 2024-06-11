@@ -1,0 +1,56 @@
+@using Lealthy_Hospital_Application_System.Models
+@model List<Lealthy_Hospital_Application_System.Models.AppointmentModel>
+
+@{
+    ViewBag.Title = "Appointment Page";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+        @TempData["ErrorMessage"]
+
+    </div>
+}
+<h2>Create Appointment</h2>
+<a class="btn btn-success" asp-controller="Appointment" asp-action="CreateAppointment">Add Appointment</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Doctor</th>
+        <th scope="col">Patient</th>
+        <th scope="col"></th>
+        
+    </tr>
+    </thead>   
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+        foreach (AppointmentModel appointments in Model)
+        {
+            <tr>
+                <th scope="row">@appointments.StaffId</th>
+                <td>@appointments.Name</td>
+                <td>@appointments.Date   </td>
+                <td>@appointments.Staffs.Name)</td>
+                <td>@appointments.Patient.Name</td>
+                <td>
+                    <a role="button" class="btn btn-warning" asp-route-id="@appointments.AppointmentId" asp-action="UpdateStaff" asp-controller="Staff">Update</a>
+                    <a role="button" class="btn btn-danger" asp-route-id="@appointments.AppointmentId" asp-action="DeleteStaff" asp-controller="Staff">Delete</a>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>

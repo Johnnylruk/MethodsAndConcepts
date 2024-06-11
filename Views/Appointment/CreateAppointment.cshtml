@@ -1,0 +1,65 @@
+@using System.ComponentModel.DataAnnotations
+@using Lealthy_Hospital_Application_System.Enum
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AppointmentModel
+
+@{
+ViewData["Title"] = "Create Appointment";
+}
+
+<h1>Create Appointment</h1>
+<div class="text-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                        <form class="max-1 mx-md-4" asp-controller="Appointment" asp-action="CreateAppointment" method="post">
+
+                            <div class="d-flex flex-row align-items-center mb-1">
+                                <div class="form-outline flex-fill mb-0">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" asp-for="Name" placeholder="Type your name"/>
+                                    @Html.ValidationMessageFor(x => x.Name)
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row align-items-center mb-1">
+                                <div class="form-outline flex-fill mb-0">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" id="datepicker" class="form-control" asp-for="Date" placeholder="Type your name"/>
+                                    @Html.ValidationMessageFor(x => x.Date)
+
+                                </div>
+                            </div>
+                            <div class="form-outline flex-fill mb-0">
+                                <label class="form-label">Doctor</label>
+                            <select class="form-select" asp-for="StaffId">
+                                <option value="" disabled selected>Select</option>
+                                @foreach (var doctor in ViewBag.Doctors )
+                                {
+                                    <option value="@doctor.StaffId">@doctor.Name</option>        
+                                }
+                            </select>
+                            </div>
+                            <div class="form-outline flex-fill mb-0">
+                                <label class="form-label">Role</label>
+                                <select class="form-select" asp-for="PatientId">
+                                    <option value="" disabled selected>Select</option>
+                                    @foreach (var patient in ViewBag.Patients)
+                                    {
+                                        <option value="@patient.PatientId">@patient.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <br/>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <a class="btn btn-secondary" asp-controller="Appointment" asp-action="Index">Back</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
