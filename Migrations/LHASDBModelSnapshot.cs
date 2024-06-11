@@ -22,6 +22,135 @@ namespace LealthyHospitalApplicationSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.AppointmentModel", b =>
+                {
+                    b.Property<int>("AppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppointmentId"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppointmentId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.DiagnosisModel", b =>
+                {
+                    b.Property<int>("DiagnosisId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiagnosisId"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Treatment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TypeOfDiagnosis")
+                        .HasColumnType("int");
+
+                    b.HasKey("DiagnosisId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("Diagnosis");
+                });
+
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.LabTestsModel", b =>
+                {
+                    b.Property<int>("LabTestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LabTestId"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("Result")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeOfTests")
+                        .HasColumnType("int");
+
+                    b.HasKey("LabTestId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("LabTests");
+                });
+
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.PatientModel", b =>
+                {
+                    b.Property<int>("PatientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientId"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PatientId");
+
+                    b.ToTable("Patients");
+                });
+
             modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.StaffModel", b =>
                 {
                     b.Property<int>("StaffId")
@@ -55,6 +184,81 @@ namespace LealthyHospitalApplicationSystem.Migrations
                     b.HasKey("StaffId");
 
                     b.ToTable("Staffs");
+                });
+
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.AppointmentModel", b =>
+                {
+                    b.HasOne("Lealthy_Hospital_Application_System.Models.PatientModel", "Patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lealthy_Hospital_Application_System.Models.StaffModel", "Staffs")
+                        .WithMany("Appointments")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Staffs");
+                });
+
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.DiagnosisModel", b =>
+                {
+                    b.HasOne("Lealthy_Hospital_Application_System.Models.PatientModel", "Patient")
+                        .WithMany("Diagnosis")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lealthy_Hospital_Application_System.Models.StaffModel", "Staff")
+                        .WithMany("Diagnosis")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.LabTestsModel", b =>
+                {
+                    b.HasOne("Lealthy_Hospital_Application_System.Models.PatientModel", "Patient")
+                        .WithMany("LabTests")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lealthy_Hospital_Application_System.Models.StaffModel", "Staff")
+                        .WithMany("LabTests")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.PatientModel", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Diagnosis");
+
+                    b.Navigation("LabTests");
+                });
+
+            modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.StaffModel", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Diagnosis");
+
+                    b.Navigation("LabTests");
                 });
 #pragma warning restore 612, 618
         }

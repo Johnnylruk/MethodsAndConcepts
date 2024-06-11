@@ -64,16 +64,17 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Role</label>
-                                    <select class="form-select" asp-for="Access">
+                                <select class="form-select" asp-for="Access">
                                     <option value="" disabled selected>Select</option>
                                     @foreach (var role in Enum.GetValues(typeof(RoleAccessEnum)).Cast<RoleAccessEnum>())
                                     {
-                                    <option value="@role">@GetEnumDisplayName(role)</option>
+                                        <option value="@role">@GetEnumDisplayName(role)</option>
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(x => x.Access)
                             </div>
-                            <br/>
+
+                        <br/>
                         <button type="submit" class="btn btn-primary">Confirm</button>
                         <a class="btn btn-secondary" asp-controller="Staff" asp-action="Index">Back</a>
                     </form>
@@ -83,4 +84,3 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
 </div>
 </div>
 </div>
-

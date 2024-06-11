@@ -5,6 +5,14 @@ namespace Lealthy_Hospital_Application_System.Models;
 
 public class StaffModel
 {
+
+    public StaffModel()
+    {
+        Appointments = new List<AppointmentModel>();
+        Diagnosis = new List<DiagnosisModel>();
+        LabTests = new List<LabTestsModel>();
+    }
+    
     [Key]
     public int StaffId { get; set;}
     [Required(ErrorMessage = "Type Staff Name")]
@@ -24,5 +32,9 @@ public class StaffModel
     
     [Required(ErrorMessage = "Select user role based access")]
     [Display(Name = "Staff Role")]
-    public RoleAccessEnum Access { get; set; }   
+    public RoleAccessEnum Access { get; set; }
+
+    public ICollection<AppointmentModel> Appointments { get; set; } = new List<AppointmentModel>();
+    public ICollection<DiagnosisModel> Diagnosis { get; set; } = new List<DiagnosisModel>();
+    public ICollection<LabTestsModel> LabTests { get; set; } = new List<LabTestsModel>();
 }
