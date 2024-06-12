@@ -18,6 +18,7 @@ builder.Services
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
 
 var app = builder.Build();
 
