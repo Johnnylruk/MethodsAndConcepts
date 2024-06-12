@@ -1,6 +1,8 @@
 using Lealthy_Hospital_Application_System.Data;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Lealthy_Hospital_Application_System.Repositories;
 
@@ -18,16 +20,29 @@ public class AppointmentRepository : IAppointmentRepository
         return _lhasdb.Appointments.ToList();
     }
 
+    public List<int> GetAllBookedStaff()
+    {
+        return _lhasdb.Appointments.Select(x => x.StaffId).ToList();
+    }
+    
     public AppointmentModel GetAppointmentById(int id)
     {
         return _lhasdb.Appointments.FirstOrDefault(x => x.AppointmentId == id);
     }
 
-    public AppointmentModel CreateAppointment(AppointmentModel appointmentModel)
+    public bool CreateAppointment(AppointmentModel appointmentModel)
     {
-        _lhasdb.Appointments.Add(appointmentModel);
-        _lhasdb.SaveChanges();
-        return (appointmentModel);
+        var appointments = _lhasdb.Appointments
+            .Where(x => x.Date == appointmentModel.Date);
+
+        if (appointments.IsNullOrEmpty())
+        {
+            _lhasdb.Appointments.Add(appointmentModel);
+            _lhasdb.SaveChanges();
+            return true;
+        }
+
+        return false;
     }
 
     public AppointmentModel UpdateAppointment(AppointmentModel appointmentModel)
@@ -39,7 +54,9 @@ public class AppointmentRepository : IAppointmentRepository
         appointmentDB.Date = appointmentModel.Date;
         appointmentDB.StaffId = appointmentModel.StaffId;
         appointmentDB.PatientId = appointmentModel.PatientId;
-
+        appointmentDB.StaffName = appointmentModel.StaffName;
+        appointmentDB.PatientName = appointmentModel.PatientName;
+        
         _lhasdb.Appointments.Update(appointmentDB);
         _lhasdb.SaveChanges();
         return appointmentDB;

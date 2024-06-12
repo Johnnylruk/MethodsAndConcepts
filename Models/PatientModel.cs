@@ -12,15 +12,17 @@ public class PatientModel
     }
     [Key]
     public int PatientId { get; set;}
-    [Required]
+    [Required(ErrorMessage = "This field is required")]
     public string Name { get; set; }
-    [Required]
+    [Required(ErrorMessage = "This field is required")]
+    [EmailAddress]
     public string Email { get; set;}
-    [Required]
+    [Required(ErrorMessage = "This field is required")]
+    [Phone(ErrorMessage = "Contact number it's not valid.")]
     public string Mobile { get; set;}
-    [Required]
+    [Required(ErrorMessage = "This field is required")]
     public string Address { get; set;}
-    [Required]
+    [Required(ErrorMessage = "This field is required")]
     public DateTime DateOfBirth { get; set;}
 
     public ICollection<AppointmentModel> Appointments { get; set; } 

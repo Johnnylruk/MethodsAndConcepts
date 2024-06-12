@@ -40,8 +40,16 @@ namespace LealthyHospitalApplicationSystem.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PatientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
+
+                    b.Property<string>("StaffName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AppointmentId");
 
@@ -194,7 +202,7 @@ namespace LealthyHospitalApplicationSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Lealthy_Hospital_Application_System.Models.StaffModel", "Staffs")
+                    b.HasOne("Lealthy_Hospital_Application_System.Models.StaffModel", "Staff")
                         .WithMany("Appointments")
                         .HasForeignKey("StaffId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -202,7 +210,7 @@ namespace LealthyHospitalApplicationSystem.Migrations
 
                     b.Navigation("Patient");
 
-                    b.Navigation("Staffs");
+                    b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("Lealthy_Hospital_Application_System.Models.DiagnosisModel", b =>

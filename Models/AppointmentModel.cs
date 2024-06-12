@@ -5,14 +5,15 @@ namespace Lealthy_Hospital_Application_System.Models;
 
 public class AppointmentModel
 {
-    [Key]
+   [Key]
     public int AppointmentId { get; set;}
-    [Required]
     public string Name { get; set;}
-    [Required]
     public DateTime Date { get; set;}
+    public string StaffName { get; set; }
     public int StaffId { get; set; }
-    public virtual StaffModel Staffs { get; set; }
+
+    public virtual StaffModel Staff { get; set; }
     public int PatientId { get; set; }
+    public string PatientName { get; set; }
     public virtual PatientModel Patient { get; set; }
 }

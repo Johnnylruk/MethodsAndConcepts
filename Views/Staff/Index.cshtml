@@ -45,7 +45,7 @@
                 <td>@staffs.Email</td>
                 <td>@staffs.Mobile</td>
                 <td>@staffs.Address</td>
-                <td>@staffs.DateOfBirth.ToString("MM/dd/yyyy")</td>
+                <td>@staffs.DateOfBirth.ToString("dd/MM/yyyy")</td>
                 <td>@Html.DisplayFor(staffItem => staffs.Access)</td>
                 <td>
                     <a role="button" class="btn btn-warning" asp-route-id="@staffs.StaffId" asp-action="UpdateStaff" asp-controller="Staff">Update</a>

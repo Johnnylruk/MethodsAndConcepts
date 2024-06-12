@@ -1,4 +1,5 @@
 using Lealthy_Hospital_Application_System.Data;
+using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ builder.Services
 
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 var app = builder.Build();
 

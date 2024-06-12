@@ -24,7 +24,7 @@ public class LHASDB : DbContext
             .HasForeignKey(t => t.PatientId);
 
         modelBuilder.Entity<AppointmentModel>()
-            .HasOne(t => t.Staffs)
+            .HasOne(t => t.Staff)
             .WithMany(t => t.Appointments)
             .HasForeignKey(t => t.StaffId);
 
