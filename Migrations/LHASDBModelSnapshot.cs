@@ -74,8 +74,16 @@ namespace LealthyHospitalApplicationSystem.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PatientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
+
+                    b.Property<string>("StaffName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Treatment")
                         .HasColumnType("nvarchar(max)");
@@ -109,11 +117,19 @@ namespace LealthyHospitalApplicationSystem.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PatientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("Result")
                         .HasColumnType("bit");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
+
+                    b.Property<string>("StaffName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TypeOfTests")
                         .HasColumnType("int");

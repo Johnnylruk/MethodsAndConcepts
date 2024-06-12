@@ -49,7 +49,7 @@
                 <td>@appointments.PatientName</td>
                 <td>
                     <a role="button" class="btn btn-warning" asp-route-id="@appointments.AppointmentId" asp-action="UpdateAppointment" asp-controller="Appointment">Update</a>
-                    <a role="button" class="btn btn-danger" asp-route-id="@appointments.AppointmentId" asp-action="Index" asp-controller="Appointment">Delete</a>
+                    <a role="button" class="btn btn-danger" asp-route-id="@appointments.AppointmentId" asp-action="DeleteAppointment" asp-controller="Appointment">Delete</a>
                 </td>
             </tr>
         }

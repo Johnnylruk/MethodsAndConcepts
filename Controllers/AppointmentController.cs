@@ -51,6 +51,12 @@ public class AppointmentController : Controller
         return View(getAppointmentModel);
     }
 
+    public IActionResult DeleteAppointment(int id)
+    {
+        AppointmentModel appointmentModel = _appointmentRepository.GetAppointmentById(id);
+        return View(appointmentModel);
+    }
+    
     [HttpPost]
     public IActionResult CreateAppointment(AppointmentModel appointmentModel)
     {
@@ -105,6 +111,28 @@ public class AppointmentController : Controller
             TempData["ErrorMessage"] = $"Ops, problem when trying to update appointment. Error {error.Message}";
             return RedirectToAction("Index");
         }
+    }
+
+    [HttpPost]
+    public IActionResult DeleteAppointment(AppointmentModel appointmentModel)
+    {
+        try
+        {
+            bool deleted = _appointmentRepository.DeleteAppointment(appointmentModel.AppointmentId);
+            if (deleted)
+            {
+                TempData["SuccessMessage"] = "Appointment has been successful updated.";
+                return RedirectToAction("Index");
+            }
+            return View(appointmentModel);
+        }
+        catch (Exception error)
+        {
+            TempData["ErrorMessage"] = $"Ops, problem when trying to delete appointment. Error {error.Message}";
+            return RedirectToAction("Index");
+        }
+       
+
     }
     
 }
