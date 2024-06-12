@@ -34,4 +34,22 @@ body {
   border-radius: 15px;
   width: 30px;
   height: 31px;
-} 
+}
+
+/*LoginBG*/
+.custom-bg-color {
+  background-color: #395c83;
+  margin-bottom: 0;
+  margin-top: -150px;
+}
+
+.customizing-bg-color {
+  background-color: #395c83;
+  margin-bottom: 0;
+  margin-top: -100px;
+}
+
+
+.custom-text-color {
+  color: white;
+}

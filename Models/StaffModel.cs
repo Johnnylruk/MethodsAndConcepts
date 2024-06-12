@@ -33,8 +33,18 @@ public class StaffModel
     [Required(ErrorMessage = "Select user role based access")]
     [Display(Name = "Staff Role")]
     public RoleAccessEnum Access { get; set; }
+    [Required(ErrorMessage = "type staff login")]
+    public string Login { get; set; }
+    [Required(ErrorMessage = "Type Staff Password")]
+    public string Password { get; set; }
 
     public ICollection<AppointmentModel> Appointments { get; set; } = new List<AppointmentModel>();
     public ICollection<DiagnosisModel> Diagnosis { get; set; } = new List<DiagnosisModel>();
     public ICollection<LabTestsModel> LabTests { get; set; } = new List<LabTestsModel>();
+
+    public bool ValidPassword(string password)
+    {
+        return Password == password;
+    }
+    
 }

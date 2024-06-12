@@ -51,7 +51,7 @@ public class StaffController : Controller
         }
         catch (Exception error)
         {
-            TempData["SuccessMessage"] = $"Ops, could not create staff. Error: {error.Message}";
+            TempData["ErrorMessage"] = $"Ops, could not create staff. Error: {error.Message}";
             return RedirectToAction("Index");
         }
     }
@@ -72,7 +72,7 @@ public class StaffController : Controller
         }
         catch (Exception error)
         {
-            TempData["SuccessMessage"] = $"Ops, could not update staff. Error: {error.Message}";
+            TempData["ErrorMessage"] = $"Ops, could not update staff. Error: {error.Message}";
             return RedirectToAction("Index");
         }
     }
@@ -93,7 +93,7 @@ public class StaffController : Controller
         }
         catch (Exception error)
         {
-            TempData["SuccessMessage"] = $"Ops, could not delete staff. Error: {error.Message}";
+            TempData["ErrorMessage"] = $"Ops, could not delete staff. Error: {error.Message}";
             return RedirectToAction("Index");
         }
     }

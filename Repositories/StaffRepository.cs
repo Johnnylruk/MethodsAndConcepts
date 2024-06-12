@@ -21,6 +21,10 @@ public class StaffRepository : IStaffRepository
     {
         return _lhasdb.Staffs.FirstOrDefault(x => x.StaffId == id);
     }
+    public StaffModel GetByLogin(string login)
+    {
+        return _lhasdb.Staffs.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
+    }
     
     public StaffModel RegisterStaff(StaffModel staffModel)
     {
@@ -39,6 +43,7 @@ public class StaffRepository : IStaffRepository
         StaffDb.Address = staffModel.Address;
         StaffDb.DateOfBirth = staffModel.DateOfBirth;
         StaffDb.Access = staffModel.Access;
+        StaffDb.Login = staffModel.Login;
         
         _lhasdb.Staffs.Update(StaffDb);
         _lhasdb.SaveChanges();

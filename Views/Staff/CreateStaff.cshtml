@@ -55,7 +55,6 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
                                 <label class="form-label">Address</label>
                                 <input type="text" class="form-control" asp-for="Address" placeholder="Type your Address"/>
                                 @Html.ValidationMessageFor(x => x.Address)
-
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Birthdate</label>
@@ -73,7 +72,16 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
                                 </select>
                                 @Html.ValidationMessageFor(x => x.Access)
                             </div>
-
+                            <div class="form-outline flex-fill mb-0">
+                                <label class="form-label">Login</label>
+                                <input type="text" class="form-control" asp-for="Login" placeholder="Type your Address"/>
+                                @Html.ValidationMessageFor(x => x.Login)
+                            </div>
+                        <div class="form-outline flex-fill mb-0">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" asp-for="Password" placeholder="Type your Address"/>
+                            @Html.ValidationMessageFor(x => x.Password)
+                        </div>
                         <br/>
                         <button type="submit" class="btn btn-primary">Confirm</button>
                         <a class="btn btn-secondary" asp-controller="Staff" asp-action="Index">Back</a>

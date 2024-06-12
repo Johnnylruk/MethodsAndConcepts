@@ -6,6 +6,7 @@ public interface IStaffRepository
 {
     List<StaffModel> GetAllStaff();
     StaffModel RegisterStaff(StaffModel staffModel);
+    StaffModel GetByLogin(string login);
     StaffModel GetStaffById(int id);
     StaffModel UpdateStaff(StaffModel staffModel);
     bool DeleteStaff(int staff);
