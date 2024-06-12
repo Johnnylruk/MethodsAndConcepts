@@ -1,0 +1,57 @@
+@using Lealthy_Hospital_Application_System.Models
+@model List<DiagnosisModel>
+
+@{
+ViewBag.Title = "Diagnosis Page";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-success" role="alert">
+    <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+    @TempData["SuccessMessage"]
+</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-danger" role="alert">
+    <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+    @TempData["ErrorMessage"]
+
+</div>
+}
+<h2>List of Diagnosis</h2>
+<a class="btn btn-success" asp-controller="Diagnosis" asp-action="CreateDiagnosis">Add Diagnosis</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Type of Diagnosis</th>
+        <th scope="col">Date</th>
+        <th scope="col">Requested By</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Treatment</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+    foreach (DiagnosisModel diagnosis in Model)
+    {
+    <tr>
+        <th scope="row">@diagnosis.DiagnosisId</th>
+        <td>@diagnosis.TypeOfDiagnosis</td>
+        <td>@diagnosis.Date.ToString("dd/MM/yyyy")</td>
+        <td>@diagnosis.StaffName</td>
+        <td>@diagnosis.PatientName</td>
+        <td>@diagnosis.Treatment</td>
+        <td>
+            <a role="button" class="btn btn-warning" asp-route-id="@diagnosis.DiagnosisId" asp-action="UpdateAppointment" asp-controller="Appointment">Update</a>
+            <a role="button" class="btn btn-danger" asp-route-id="@diagnosis.DiagnosisId" asp-action="DeleteAppointment" asp-controller="Appointment">Delete</a>
+        </td>
+    </tr>
+    }
+    }
+    </tbody>
+</table>
