@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using Lealthy_Hospital_Application_System.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Lealthy_Hospital_Application_System.Models;
 
 namespace Lealthy_Hospital_Application_System.Controllers;
 
+[UserLoggedPage]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

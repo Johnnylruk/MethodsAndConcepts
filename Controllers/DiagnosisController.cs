@@ -1,8 +1,11 @@
+using Lealthy_Hospital_Application_System.Filters;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lealthy_Hospital_Application_System.Controllers;
+
+[UserLoggedPage]
 
 public class DiagnosisController : Controller
 {
