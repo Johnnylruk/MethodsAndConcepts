@@ -1,4 +1,6 @@
+using Lealthy_Hospital_Application_System.Enum;
 using Lealthy_Hospital_Application_System.Filters;
+using Lealthy_Hospital_Application_System.Helper;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,17 +11,44 @@ namespace Lealthy_Hospital_Application_System.Controllers;
 
 public class PatientController : Controller
 {
-    private IPatientRepository _patientRepository;
+    private readonly IPatientRepository _patientRepository;
+    private readonly IStaffSession _staffSession;
+    private readonly IAppointmentRepository _appointmentRepository;
 
-    public PatientController(IPatientRepository _patientRepository)
+    public PatientController(IPatientRepository _patientRepository, IStaffSession _staffSession,
+                            IAppointmentRepository _appointmentRepository)
     {
         this._patientRepository = _patientRepository;
+        this._staffSession = _staffSession;
+        this._appointmentRepository = _appointmentRepository;
+        
     }
-    // GET
+
     public IActionResult Index()
     {
-        List<PatientModel> ListPatients = _patientRepository.GetAllPatients(); 
-        return View(ListPatients);
+        var staffSession = _staffSession.GetLoginSession();
+        if (staffSession.Access == RoleAccessEnum.Doctor)
+        {
+ 
+            var appointments = _appointmentRepository.GetAllAppointments()
+                .Where(ap => ap.StaffId == staffSession.StaffId)
+                .ToList(); 
+    
+            var distinctPatients = appointments
+                .Where(ap => ap.Patient != null) 
+                .Select(ap => ap.Patient)
+                .GroupBy(p => p.PatientId) 
+                .Select(g => g.First()) 
+                .ToList();
+    
+            return View(distinctPatients);
+        }
+        else
+        {
+            List<PatientModel> ListPatients = _patientRepository.GetAllPatients(); 
+            return View(ListPatients);
+        }
+       
     }
 
     public IActionResult CreatePatient()

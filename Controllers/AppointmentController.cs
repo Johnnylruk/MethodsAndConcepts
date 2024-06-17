@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lealthy_Hospital_Application_System.Controllers;
 
-[UserLoggedPage]
 
 public class AppointmentController : Controller
 {

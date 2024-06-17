@@ -2,6 +2,7 @@ using Lealthy_Hospital_Application_System.Data;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Lealthy_Hospital_Application_System.Repositories;
@@ -17,7 +18,9 @@ public class AppointmentRepository : IAppointmentRepository
     
     public List<AppointmentModel> GetAllAppointments()
     {
-        return _lhasdb.Appointments.ToList();
+        return _lhasdb.Appointments
+            .Include(x => x.Patient)
+            .ToList();
     }
 
     public List<int> GetAllBookedStaff()

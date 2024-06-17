@@ -20,7 +20,7 @@ return displayAttribute != null ? displayAttribute.Name : illness.ToString();
 }
 
 
-<h1>Create Staff</h1>
+<h1>Create Diagnosis</h1>
 <div class="text-center">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -29,10 +29,12 @@ return displayAttribute != null ? displayAttribute.Name : illness.ToString();
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
                         <form class="max-1 mx-md-4" asp-controller="Diagnosis" asp-action="CreateDiagnosis" method="post">
-
+                            
+                            <input type="hidden" asp-for="DiagnosisId"/>
+                            
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Type of Diagnosis</label>
-                                <select class="form-select" asp-for="TypeOfDiagnosis">
+                                <select class="form-select" asp-for="TypeOfDiagnosis" required>
                                     <option value="" disabled selected>Select</option>
                                     @foreach (var illness in Enum.GetValues(typeof(IllnessesList)).Cast<IllnessesList>())
                                     {
@@ -44,26 +46,28 @@ return displayAttribute != null ? displayAttribute.Name : illness.ToString();
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Date</label>
-                                    <input type="datetime" class="form-control" asp-for="Date" placeholder="Type your name"/>
+                                    <input type="date" readonly class="form-control" asp-for="Date" required/>
                                 </div>
                             </div>
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Staff Name</label>
-                                    <input type="text" class="form-control" asp-for="StaffName" placeholder="Type your email"/>
+                                    <input type="text" asp-for="StaffName" placeholder="@Model.StaffName" readonly class="form-control text-center" />
+                                    <input type="hidden" asp-for="StaffId"/>
                                 </div>
                             </div>
                             <div class="form-outline flex-fill mb-0">
-                                <label class="form-label">Patient Name</label>
-                                <input type="text" class="form-control" asp-for="PatientName" placeholder="Type your mobile"/>
+                                <label class="form-label">Patients</label>
+                                <input type="text" placeholder="@Model.PatientName" readonly class="form-control text-center" asp-for="PatientName" />
+                                <input type="hidden" asp-for="PatientId"/>
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Treatment</label>
-                                <input type="date" class="form-control" asp-for="Treatment" placeholder="Select your Birthdate"/>
+                                <input type="text" class="form-control" style="width:100%; height:50px" asp-for="Treatment" />
                             </div>
                             <br/>
                             <button type="submit" class="btn btn-primary">Confirm</button>
-                            <a class="btn btn-secondary" asp-controller="Staff" asp-action="Index">Back</a>
+                            <a class="btn btn-secondary" asp-controller="Diagnosis" asp-action="Index">Back</a>
                         </form>
                     </div>
                 </div>
