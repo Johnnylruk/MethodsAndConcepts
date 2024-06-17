@@ -1,3 +1,4 @@
+using Lealthy_Hospital_Application_System.Helper;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -8,14 +9,23 @@ namespace Lealthy_Hospital_Application_System.Controllers;
 public class LoginController : Controller
 {
     private readonly IStaffRepository _staffRepository;
+    private readonly IStaffSession _staffSession;
 
-    public LoginController(IStaffRepository _staffRepository)
+    public LoginController(IStaffRepository _staffRepository, IStaffSession _staffSession)
     {
         this._staffRepository = _staffRepository;
+        this._staffSession = _staffSession;
     }
     public IActionResult Index()
     {
+        if(_staffSession.GetLoginSession() != null) return RedirectToAction("Index", "Home");
         return View();
+    }
+
+    public IActionResult Logout()
+    {
+        _staffSession.RemoveLoginSession();
+        return RedirectToAction("Index", "Login");
     }
 
     [HttpPost]
@@ -25,12 +35,13 @@ public class LoginController : Controller
         {
             if (ModelState.IsValid)
             {
-            StaffModel Staff = _staffRepository.GetByLogin(loginModel.Login);
+            StaffModel staff = _staffRepository.GetByLogin(loginModel.Login);
 
-            if (Staff != null)
+            if (staff != null)
             {
-                if (Staff.ValidPassword(loginModel.Password))
+                if (staff.ValidPassword(loginModel.Password))
                 {
+                    _staffSession.CreateLoginSession(staff);
                     return RedirectToAction("Index", "Home");
                 }
                 TempData["ErrorMessage"] = "Login and/or password invalid";
@@ -39,7 +50,6 @@ public class LoginController : Controller
             
             }
             return View("Index");
-
         }
         catch (Exception error)
         {

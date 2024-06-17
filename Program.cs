@@ -1,4 +1,5 @@
 using Lealthy_Hospital_Application_System.Data;
+using Lealthy_Hospital_Application_System.Helper;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
@@ -15,10 +16,19 @@ builder.Services
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
     );
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
+builder.Services.AddScoped<IStaffSession, StaffSession>();
+
+builder.Services.AddSession(o =>
+{
+    o.Cookie.HttpOnly = true;
+    o.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -36,6 +46,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
