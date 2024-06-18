@@ -8,6 +8,6 @@ public interface IStaffRepository
     StaffModel RegisterStaff(StaffModel staffModel);
     StaffModel GetByLogin(string login);
     StaffModel GetStaffById(int id);
-    StaffModel UpdateStaff(StaffModel staffModel);
+    StaffModel UpdateStaff(StaffWithoutPwdModel staffModel);
     bool DeleteStaff(int staff);
 }

@@ -32,7 +32,7 @@ public class StaffRepository : IStaffRepository
         _lhasdb.SaveChanges();
         return staffModel;
     }
-    public StaffModel UpdateStaff(StaffModel staffModel)
+    public StaffModel UpdateStaff(StaffWithoutPwdModel staffModel)
     {
         StaffModel StaffDb = GetStaffById(staffModel.StaffId);
         if (staffModel == null) throw new Exception("Error when updating candidate.");

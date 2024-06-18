@@ -18,8 +18,14 @@
 
     </div>
 }
-<h2>List of Patients</h2>
-<a class="btn btn-success" asp-controller="Patient" asp-action="CreatePatient">Add Patient</a>
+<h2 class="text-center">List of Patients</h2>
+
+@if (ViewBag.Doctor != "Doctor")
+{
+    <a asp-controller="Patient" asp-action="CreatePatient">
+        <i class="fas fa-user-plus text-success"></i>
+    </a>
+}
 <table class="table">
     <thead>
     <tr>
@@ -47,14 +53,17 @@
                 <td>@patient.DateOfBirth.ToString("dd/MM/yyyy")</td>
                 <td></td>
                 <td>
-                    <a asp-route-id="@patient.PatientId" asp-action="Index" asp-controller="Patient">
-                        <i class="fas fa-user-edit"></i>
-                    </a>
-                    <a asp-route-id="@patient.PatientId" asp-action="Index" asp-controller="Patient">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
+                    @if (ViewBag.Doctor != "Doctor")
+                    {
+                        <a asp-action="UpdatePatient" asp-controller="Patient" asp-route-PatientId="@patient.PatientId">
+                            <i class="fas fa-user-edit text-warning" title="Edit Patient"></i>
+                        </a>
+                        <a asp-route-PatientId="@patient.PatientId" asp-action="DeletePatient" asp-controller="Patient">
+                            <i class="fas fa-trash-alt text-danger" title="Delete Patient"></i>
+                        </a>    
+                    }
                     <a asp-action="CreateDiagnosis" asp-controller="Diagnosis" asp-route-id="@patient.PatientId">
-                        <i class="fas fa-book-medical text-black"></i>
+                        <i class="fas fa-book-medical text-primary" title="Create Diagnosis"></i>
                     </a>
                 </td>
             </tr>

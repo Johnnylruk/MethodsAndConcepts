@@ -29,7 +29,6 @@ public class PatientController : Controller
         var staffSession = _staffSession.GetLoginSession();
         if (staffSession.Access == RoleAccessEnum.Doctor)
         {
- 
             var appointments = _appointmentRepository.GetAllAppointments()
                 .Where(ap => ap.StaffId == staffSession.StaffId)
                 .ToList(); 
@@ -40,8 +39,14 @@ public class PatientController : Controller
                 .GroupBy(p => p.PatientId) 
                 .Select(g => g.First()) 
                 .ToList();
-    
-            return View(distinctPatients);
+            
+            if (distinctPatients.Count != 0)
+            {
+                ViewBag.Doctor = "Doctor";
+                return View(distinctPatients);    
+            }
+            TempData["ErrorMessage"] = "You do not have any Patient";
+            return RedirectToAction("Index", "Home");
         }
         else
         {
@@ -54,6 +59,17 @@ public class PatientController : Controller
     public IActionResult CreatePatient()
     {
         return View();
+    }
+
+    public IActionResult UpdatePatient(int PatientId)
+    {
+        PatientModel patientModel = _patientRepository.GetPatientById(PatientId);
+        return View(patientModel);
+    }
+    public IActionResult DeletePatient(int PatientId)
+    {
+        PatientModel patientModel = _patientRepository.GetPatientById(PatientId);
+        return View(patientModel);
     }
 
     [HttpPost]
@@ -73,6 +89,53 @@ public class PatientController : Controller
         catch (Exception error)
         {
             TempData["ErrorMessage"] = $"Ops, problem when trying to create patient. Error {error.Message}";
+            return RedirectToAction("Index");
+        }
+    }
+
+    [HttpPost]
+    public IActionResult UpdatePatient(PatientModel patientModel)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                _patientRepository.UpdatePatient(patientModel);
+                TempData["SuccessMessage"] = "Patient has been successful updated.";
+                return RedirectToAction("Index");
+            }
+
+            return View(patientModel);
+        }
+        catch (Exception error)
+        {
+            TempData["ErrorMessage"] = $"Ops, problem when trying to update patient. Error {error.Message}";
+            return RedirectToAction("Index");
+        }
+    }
+
+    [HttpPost]
+
+    public IActionResult DeletePatient(PatientModel patientModel)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                bool PatientDeleted = _patientRepository.DeletePatient(patientModel.PatientId);
+           
+                if (PatientDeleted)
+                {
+                    TempData["SuccessMessage"] = "Patient has been successful updated.";
+                    return RedirectToAction("Index");
+                }    
+            }
+
+            return View(patientModel);
+        }
+        catch (Exception error)
+        {
+            TempData["ErrorMessage"] = $"Ops, problem when trying to delete patient. Error {error.Message}";
             return RedirectToAction("Index");
         }
     }

@@ -30,7 +30,18 @@ public class StaffController : Controller
     public IActionResult UpdateStaff(int id)
     {
         StaffModel staffId = _staffRepository.GetStaffById(id);
-        return View(staffId);
+        var StaffWithoutPassword = new StaffWithoutPwdModel()
+        {
+            StaffId = staffId.StaffId,
+            Name = staffId.Name,
+            Email = staffId.Email,
+            Mobile = staffId.Mobile,
+            Address = staffId.Address,
+            DateOfBirth = staffId.DateOfBirth,
+            Access = staffId.Access,
+            Login = staffId.Login
+        };
+        return View(StaffWithoutPassword);
     }
     public IActionResult DeleteStaff(int id)
     {
@@ -60,7 +71,7 @@ public class StaffController : Controller
     }
 
     [HttpPost]
-    public IActionResult UpdateStaff(StaffModel staffModel)
+    public IActionResult UpdateStaff(StaffWithoutPwdModel staffModel)
     {
         try
         {
