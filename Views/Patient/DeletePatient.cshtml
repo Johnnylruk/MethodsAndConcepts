@@ -4,7 +4,7 @@
 ViewData["Title"] = "Delete Patient";
 }
 
-<h1 class="text-center">Delete Staff</h1>
+<h2 class="text-center">Delete Staff</h2>
 <div class="text-center">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -16,34 +16,34 @@ ViewData["Title"] = "Delete Patient";
                             <input type="hidden" asp-for="PatientId"/>
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
-                                    <label class="form-label">Name</label>
-                                    <input readonly type="text" class="form-control" asp-for="Name"/>
+                                    <label class="form-label text-center">Name</label>
+                                    <input readonly type="text" class="form-control text-center" asp-for="Name"/>
                                     @Html.ValidationMessageFor(x => x.Name)
                                 </div>
                             </div>
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
-                                    <label class="form-label">Email</label>
-                                    <input type="text" readonly class="form-control" asp-for="Email"/>
+                                    <label class="form-label text-center">Email</label>
+                                    <input type="text" readonly class="form-control text-center" asp-for="Email"/>
                                     @Html.ValidationMessageFor(x => x.Email)
 
                                 </div>
                             </div>
                             <div class="form-outline flex-fill mb-0">
-                                <label class="form-label">Mobile</label>
-                                <input type="text" readonly class="form-control" asp-for="Mobile"/>
+                                <label class="form-label text-center">Mobile</label>
+                                <input type="text" readonly class="form-control text-center" asp-for="Mobile"/>
                                 @Html.ValidationMessageFor(x => x.Mobile)
 
                             </div>
                             <div class="form-outline flex-fill mb-0">
-                                <label class="form-label">Address</label>
-                                <input type="text" readonly class="form-control" asp-for="Address"/>
+                                <label class="form-label text-center">Address</label>
+                                <input type="text" readonly class="form-control text-center" asp-for="Address"/>
                                 @Html.ValidationMessageFor(x => x.Address)
 
                             </div>
                             <div class="form-outline flex-fill mb-0">
-                                <label class="form-label">Birthdate</label>
-                                <input type="text" readonly class="form-control" asp-for="DateOfBirth"/>
+                                <label class="form-label text-center">Birthdate</label>
+                                <input type="text" readonly class="form-control text-center" asp-for="DateOfBirth"/>
                                 @Html.ValidationMessageFor(x => x.DateOfBirth)
                             </div>
                             <br/>
