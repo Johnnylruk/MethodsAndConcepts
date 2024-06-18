@@ -1,11 +1,11 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model AppointmentModel
+@model DiagnosisModel
 
 @{
-ViewData["Title"] = "Delete Appointment";
+ViewData["Title"] = "Delete Diagnosis";
 }
 
-<h1>Delete Appointment</h1>
+<h1>Delete Diagnosis</h1>
 <div class="text-center">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -13,27 +13,27 @@ ViewData["Title"] = "Delete Appointment";
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                        <form class="max-1 mx-md-4" asp-controller="Appointment" asp-action="DeleteAppointment" method="post">
-                            <input type="hidden" asp-for="AppointmentId" />
+                        <form class="max-1 mx-md-4" asp-controller="Diagnosis" asp-action="DeleteDiagnosis" method="post">
+                            <input type="hidden" asp-for="DiagnosisId" />
 
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" asp-for="Name" readonly/>
+                                    <label class="form-label">Type Of Diagnosis</label>
+                                    <input type="text" class="form-control" asp-for="TypeOfDiagnosis" readonly/>
                                 </div>
                             </div>
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Date</label>
-                                    <input type="datetime" id="datetimepicker" class="form-control" asp-for="Date" readonly/>
+                                    <input type="date" id="datetimepicker" class="form-control" asp-for="Date" readonly/>
                                 </div>
                             </div>
                             <div class="form-outline flex-fill mb-0">
-                                <label class="form-label">Doctor</label>
+                                <label class="form-label">Staff Name</label>
                                 <input type="text" class="form-control" asp-for="StaffName" readonly/>
                             </div>
                             <div class="form-outline flex-fill mb-0">
-                                <label class="form-label">Patients</label>
+                                <label class="form-label">Patient</label>
                                 <input type="text" class="form-control" asp-for="PatientName" readonly/>
                             </div>
 

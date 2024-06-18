@@ -49,6 +49,18 @@ public class DiagnosisController : Controller
         return View(diagnosisModel);
     }
 
+    public IActionResult UpdateDiagnosis(int id)
+    {
+        DiagnosisModel diagnosisModel = _diagnosisRepository.GetDiagnosisById(id);
+        return View(diagnosisModel);
+    }
+    
+    public IActionResult DeleteDiagnosis(int id)
+    {
+        DiagnosisModel diagnosisModel = _diagnosisRepository.GetDiagnosisById(id);
+        return View(diagnosisModel);
+    }
+    
     [HttpPost]
     public IActionResult CreateDiagnosis(DiagnosisModel diagnosisModel)
     {
@@ -64,5 +76,47 @@ public class DiagnosisController : Controller
             return RedirectToAction("Index");
         }
     }
-    
+
+    [HttpPost]
+    public IActionResult UpdateDiagnosis(DiagnosisModel diagnosisModel)
+    {
+        try
+        {
+            PatientModel getPatientModel = _patientRepository.GetPatientById(diagnosisModel.PatientId);
+            diagnosisModel.Patient = getPatientModel;
+            StaffModel getStaffModel = _staffSession.GetLoginSession();
+            diagnosisModel.Staff = getStaffModel;
+            diagnosisModel.Date = DateTime.Now;
+            
+            _diagnosisRepository.UpdateDiagnosis(diagnosisModel);
+            TempData["SuccessMessage"] = "Diagnosis has been successful updated";
+            return RedirectToAction("Index");    
+
+        }
+        catch (Exception error)
+        {
+            TempData["ErrorMessage"] = $"Ops, cannot update Diagnosis. Error{error.Message}";
+            return RedirectToAction("Index");
+        }
+    }
+
+    [HttpPost]
+    public IActionResult DeleteDiagnosis(DiagnosisModel diagnosisModel)
+    {
+        try
+        {
+            bool deleted = _diagnosisRepository.DeleteDiagnosis(diagnosisModel.DiagnosisId);
+            if (deleted)
+            {
+                TempData["SuccessMessage"] = "Diagnosis has been successful deleted";
+                return RedirectToAction("Index");  
+            }
+            return View(diagnosisModel);
+        }
+        catch (Exception error)
+        {
+            TempData["ErrorMessage"] = $"Ops, cannot delete Diagnosis. Error{error.Message}";
+            return RedirectToAction("Index");
+        }
+    }
 }

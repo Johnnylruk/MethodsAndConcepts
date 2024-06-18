@@ -65,11 +65,9 @@ public class AppointmentController : Controller
         try
         {
             var StaffId = _staffRepository.GetStaffById(appointmentModel.StaffId);
-            string StaffName = StaffId.Name;
-            appointmentModel.StaffName = StaffName;
             var PatientId = _patientRepository.GetPatientById(appointmentModel.PatientId);
-            string PatientName = PatientId.Name;
-            appointmentModel.PatientName = PatientName;
+            appointmentModel.StaffName = StaffId.Name;
+            appointmentModel.PatientName = PatientId.Name;
             
             bool appointmentCreated =  _appointmentRepository.CreateAppointment(appointmentModel);
             
@@ -123,7 +121,7 @@ public class AppointmentController : Controller
             bool deleted = _appointmentRepository.DeleteAppointment(appointmentModel.AppointmentId);
             if (deleted)
             {
-                TempData["SuccessMessage"] = "Appointment has been successful updated.";
+                TempData["SuccessMessage"] = "Appointment has been successful deleted.";
                 return RedirectToAction("Index");
             }
             return View(appointmentModel);

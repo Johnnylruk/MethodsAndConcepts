@@ -1,0 +1,78 @@
+@using System.ComponentModel.DataAnnotations
+@using Lealthy_Hospital_Application_System.Enum
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model DiagnosisModel
+
+@{
+ViewData["Title"] = "Update Diagnosis";
+}
+
+@functions {
+public string GetEnumDisplayName(IllnessesList illness)
+{
+var displayAttribute = illness.GetType()
+.GetField(illness.ToString())
+.GetCustomAttributes(typeof(DisplayAttribute), false)
+.FirstOrDefault() as DisplayAttribute;
+
+return displayAttribute != null ? displayAttribute.Name : illness.ToString();
+}
+}
+
+
+<h1 class="text-center">Update Diagnosis</h1>
+<div class="text-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                        <form class="max-1 mx-md-4" asp-controller="Diagnosis" asp-action="UpdateDiagnosis" method="post">
+
+                            <input type="hidden" asp-for="DiagnosisId"/>
+                            
+                            <div class="form-outline flex-fill mb-0">
+                                <label class="form-label">Type of Diagnosis</label>
+                                <select class="form-select" asp-for="TypeOfDiagnosis" required>
+                                    <option value="" disabled selected>Select</option>
+                                    @foreach (var illness in Enum.GetValues(typeof(IllnessesList)).Cast<IllnessesList>())
+                                    {
+                                        <option value="@illness">@GetEnumDisplayName(illness)</option>
+                                    }
+                                </select>
+
+                            </div>
+
+                            <div class="d-flex flex-row align-items-center mb-1">
+                                <div class="form-outline flex-fill mb-0">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" readonly class="form-control" asp-for="Date" required/>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row align-items-center mb-1">
+                                <div class="form-outline flex-fill mb-0">
+                                    <label class="form-label">Staff Name</label>
+                                    <input type="text" asp-for="StaffName" placeholder="@Model.StaffName" readonly class="form-control text-center" />
+                                    <input type="hidden" asp-for="StaffId"/>
+                                </div>
+                            </div>
+                            <div class="form-outline flex-fill mb-0">
+                                <label class="form-label">Patient</label>
+                                <input type="text" placeholder="@Model.PatientName" readonly class="form-control text-center" asp-for="PatientName" />
+                                <input type="hidden" asp-for="PatientId"/>
+                            </div>
+                            <div class="form-outline flex-fill mb-0">
+                                <label class="form-label">Treatment</label>
+                                <input type="text" class="form-control" style="width:100%; height:50px" asp-for="Treatment" />
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <a class="btn btn-secondary" asp-controller="Diagnosis" asp-action="Index">Back</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
