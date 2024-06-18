@@ -26,7 +26,7 @@
         <i class="fas fa-user-plus text-success fa-2x" title="Add Patient"></i>
     </a>
 }
-<table class="table">
+<table class="table" id="tables">
     <thead>
     <tr>
         <th scope="col">ID</th>
@@ -51,7 +51,6 @@
                 <td>@patient.Mobile</td>
                 <td>@patient.Address</td>
                 <td>@patient.DateOfBirth.ToString("dd/MM/yyyy")</td>
-                <td></td>
                 <td>
                     @if (ViewBag.Doctor != "Doctor")
                     {
