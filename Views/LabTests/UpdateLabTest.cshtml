@@ -4,23 +4,10 @@
 @model LabTestsModel
 
 @{
-ViewData["Title"] = "Create LabTests";
+ViewData["Title"] = "Update LabTests";
 }
 
-@functions {
-public string GetEnumDisplayName(LaboratoryTests tests)
-{
-var displayAttribute = tests.GetType()
-.GetField(tests.ToString())
-.GetCustomAttributes(typeof(DisplayAttribute), false)
-.FirstOrDefault() as DisplayAttribute;
-
-return displayAttribute != null ? displayAttribute.Name : tests.ToString();
-}
-}
-
-
-<h1>Create Lab Tests</h1>
+<h1>Update Lab Tests</h1>
 <div class="text-center">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -28,19 +15,13 @@ return displayAttribute != null ? displayAttribute.Name : tests.ToString();
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                        <form class="max-1 mx-md-4" asp-controller="LabTests" asp-action="CreateLabTest" method="post">
+                        <form class="max-1 mx-md-4" asp-controller="LabTests" asp-action="UpdateLabTest" method="post">
 
                             <input type="hidden" asp-for="LabTestId"/>
 
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Type of Lab Tests</label>
-                                <select class="form-select text-center" asp-for="TypeOfTests" required>
-                                    <option value="" disabled selected>Select</option>
-                                    @foreach (var tests in Enum.GetValues(typeof(LaboratoryTests)).Cast<LaboratoryTests>())
-                                    {
-                                        <option value="@tests">@GetEnumDisplayName(tests)</option>
-                                    }
-                                </select>
+                                <input type="text" readonly class="text-center form-control" asp-for="TypeOfTests"/>
                             </div>
 
                             <div class="d-flex flex-row align-items-center mb-1">
@@ -67,7 +48,7 @@ return displayAttribute != null ? displayAttribute.Name : tests.ToString();
                                     <option value="" disabled selected>Select</option>
                                     <option value="@bool.TrueString" >Positive</option>
                                     <option value="@bool.FalseString">Negative</option>
-                
+
                                 </select>
                             </div>
                             <div class="form-outline flex-fill mb-0">

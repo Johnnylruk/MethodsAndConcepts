@@ -37,7 +37,7 @@ public class LabTestsRepository : ILabTestsRepository
 
         LabTestDB.TypeOfTests = labTestsModel.TypeOfTests;
         LabTestDB.Description = labTestsModel.Description;
-        LabTestDB.Date = labTestsModel.Date;
+        LabTestDB.Date = DateTime.Now;
         LabTestDB.Result = labTestsModel.Result;
         
         _lhasdb.LabTests.Update(LabTestDB);

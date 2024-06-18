@@ -1,3 +1,4 @@
+using Lealthy_Hospital_Application_System.Enum;
 using Lealthy_Hospital_Application_System.Helper;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
@@ -45,18 +46,73 @@ public class LabTestsController : Controller
         return View(labTest);
     }
 
+    public IActionResult UpdateLabTest(int id)
+    {
+        LabTestsModel labTestsModel = _labTestsRepository.GetLabTestById(id);
+        return View(labTestsModel);
+    }
+
+    public IActionResult DeleteLabTest(int id)
+    {
+        LabTestsModel labTestsModel = _labTestsRepository.GetLabTestById(id);
+        return View(labTestsModel);
+    }
+
     [HttpPost]
     public IActionResult CreateLabTest(LabTestsModel labTestsModel)
     {
         try
         {
-                _labTestsRepository.RegisterLabTest(labTestsModel);
-                TempData["SuccessMessage"] = "Laboratory Test has been requested.";
-                return RedirectToAction("Index");
+            _labTestsRepository.RegisterLabTest(labTestsModel);
+            TempData["SuccessMessage"] = "Laboratory Test has been requested.";
+            return RedirectToAction("Index");
         }
         catch (Exception error)
         {
             TempData["ErrorMessage"] = $"Laboratory Test could not been requested.{error.Message}";
+            return RedirectToAction("Index");
+        }
+    }
+
+    [HttpPost]
+    public IActionResult UpdateLabTest(LabTestsModel labTestsModel)
+    {
+        try
+        {
+            PatientModel getPatientModel = _patientRepository.GetPatientById(labTestsModel.PatientId);
+            labTestsModel.Patient = getPatientModel;
+            StaffModel getStaffModel = _staffSession.GetLoginSession();
+            labTestsModel.Staff = getStaffModel;
+            
+            _labTestsRepository.UpdateLabTest(labTestsModel);
+            TempData["SuccessMessage"] = "Laboratory Test has been successful updated";
+            return RedirectToAction("Index");    
+
+        }
+        catch (Exception error)
+        {
+            TempData["ErrorMessage"] = $"Ops, cannot update Laboratory Test. Error{error.Message}";
+            return RedirectToAction("Index");
+        }
+    }
+
+    [HttpPost]
+    public IActionResult DeleteLabTest(LabTestsModel labTestsModel)
+    {
+        try
+        {
+            bool deleted = _labTestsRepository.RemoveLabTest(labTestsModel.LabTestId);
+            if (deleted)
+            {
+                TempData["SuccessMessage"] = "Laboratory Test has been successful deleted";
+                return RedirectToAction("Index");
+            }
+
+            return View(labTestsModel);
+        }
+        catch (Exception error)
+        {
+            TempData["ErrorMessage"] = $"Ops, cannot delete Laboratory Test. Error{error.Message}";
             return RedirectToAction("Index");
         }
     }
