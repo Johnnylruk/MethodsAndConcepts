@@ -1,0 +1,65 @@
+@model List<LabTestsModel>
+
+@{
+ViewBag.Title = "LabTests Page";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-success" role="alert">
+    <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+    @TempData["SuccessMessage"]
+</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-danger" role="alert">
+    <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+    @TempData["ErrorMessage"]
+
+</div>
+}
+<h2 class="text-center">List of Laboratory Tests</h2>
+<a class="btn btn-success" asp-controller="LabTests" asp-action="CreateLabTest">Add Laboratory Test</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Type of Test</th>
+        <th scope="col">Date</th>
+        <th scope="col">Requested By</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Result</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+    foreach (LabTestsModel tests in Model)
+    {
+    <tr>
+        <th scope="row">@tests.LabTestId</th>
+        <td>@tests.TypeOfTests</td>
+        <td>@tests.Date.ToString("dd/MM/yyyy")</td>
+        <td>@tests.StaffName</td>
+        <td>@tests.PatientName</td>
+        @if (tests.Result == null)
+        {
+            <td>Pending</td>
+        }
+        else
+        {
+            <td>@tests.Result</td>
+        }
+        <td>@tests.Description</td>
+        <td>
+            <a role="button" class="btn btn-warning" asp-route-id="@tests.LabTestId" asp-action="Index" asp-controller="LabTests">Update</a>
+            <a role="button" class="btn btn-danger" asp-route-id="@tests.LabTestId" asp-action="Index" asp-controller="LabTests">Delete</a>
+        </td>
+    </tr>
+    }
+    }
+    </tbody>
+</table>

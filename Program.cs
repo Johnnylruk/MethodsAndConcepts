@@ -22,6 +22,7 @@ builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
+builder.Services.AddScoped<ILabTestsRepository, LabTestsRepository>();
 builder.Services.AddScoped<IStaffSession, StaffSession>();
 
 builder.Services.AddSession(o =>

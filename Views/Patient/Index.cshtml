@@ -65,6 +65,9 @@
                     <a asp-action="CreateDiagnosis" asp-controller="Diagnosis" asp-route-id="@patient.PatientId">
                         <i class="fas fa-book-medical text-primary" title="Create Diagnosis"></i>
                     </a>
+                    <a asp-action="CreateLabTest" asp-controller="LabTests" asp-route-id="@patient.PatientId">
+                        <i class="fas fa-flask text-info" title="Request Lab Test"></i>
+                    </a>
                 </td>
             </tr>
         }
