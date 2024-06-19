@@ -34,8 +34,6 @@ public class LoginController : Controller
     {
         try
         {
-            if (ModelState.IsValid)
-            {
 
                 List<StaffModel> DBStaff = _staffRepository.GetAllStaff();
                 if (DBStaff.IsNullOrEmpty())
@@ -66,7 +64,6 @@ public class LoginController : Controller
             }
 
             TempData["ErrorMessage"] = "Login and/or password invalid";
-            }
 
             TempData["ErrorMessage"] = $"Login and/or password invalid";
             return View("Index");

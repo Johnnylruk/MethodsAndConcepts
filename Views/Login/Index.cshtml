@@ -28,15 +28,15 @@
                             <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                             
                             <div class="form-outline form-white mb-4">
-                                <input type="text" asp-for="Login" id="login" class="form-control form-control-lg" />
+                                <input type="text" asp-for="Login" id="login" class="form-control form-control-lg" required
+                                       oninvalid="this.setCustomValidity('Please enter your login detail.')" oninput="this.setCustomValidity('')" />
                                 <label class="form-label" for="login">Login</label>
-                                @Html.ValidationMessageFor(x => x.Login)
                             </div>
 
                             <div class="form-outline form-white mb-4">
-                                <input type="password" asp-for="Password" id="password" class="form-control form-control-lg" />
+                                <input type="password" asp-for="Password" id="password" class="form-control form-control-lg" required
+                                       oninvalid="this.setCustomValidity('Please enter password.')" oninput="this.setCustomValidity('')"/>
                                 <label class="form-label" for="password">Password</label>
-                                @Html.ValidationMessageFor(x => x.Password)
                             </div>
 
                             @*<p class="small mb-5 pb-lg-2">

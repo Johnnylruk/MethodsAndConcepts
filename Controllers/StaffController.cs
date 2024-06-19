@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Lealthy_Hospital_Application_System.Controllers;
 
 [OnlyAdministratorPage]
+[UserLoggedPage]
 
 public class StaffController : Controller
 {
