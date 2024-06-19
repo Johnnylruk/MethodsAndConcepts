@@ -18,7 +18,7 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
 }
 }
 
-<h1>Update Staff</h1>
+<h2 class="text-center">Update Staff</h2>
 <div class="text-center">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -26,7 +26,8 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                        <form class="max-1 mx-md-4" asp-controller="Staff" asp-action="UpdateStaff" method="post">
+                        <form class="max-1 mx-md-4" asp-controller="Staff" asp-action="UpdateStaff" method="post"
+                              onsubmit="return confirm('Are you sure you want to update staff?')">
                             <input type="hidden" asp-for="StaffId"/>
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">

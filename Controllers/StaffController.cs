@@ -97,33 +97,6 @@ public class StaffController : Controller
     {
         try
         {
-            StaffModel staffDB = _staffRepository.GetAllStaff()
-                .FirstOrDefault(
-                    x => x.Login == staffModel.Login ||
-                         x.Mobile == staffModel.Mobile ||
-                         x.Email == staffModel.Email
-                );
-
-            if (staffDB != null)
-            {
-                if (staffDB.Login == staffModel.Login)
-                {
-                    TempData["ErrorMessage"] = "Login already registered.";
-                    return View("CreateStaff");
-                }
-
-                if (staffDB.Mobile == staffModel.Mobile)
-                {
-                    TempData["ErrorMessage"] = "Mobile already registered.";
-                    return View("CreateStaff");
-                }
-
-                if (staffDB.Email == staffModel.Email)
-                {
-                    TempData["ErrorMessage"] = "Email already registered.";
-                    return View("CreateStaff");
-                }
-            }
             _staffRepository.UpdateStaff(staffModel);
             TempData["SuccessMessage"] = "Staff has been updated.";
             return RedirectToAction("Index");

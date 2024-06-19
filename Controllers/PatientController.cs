@@ -110,14 +110,9 @@ public class PatientController : Controller
     {
         try
         {
-            if (ModelState.IsValid)
-            {
                 _patientRepository.UpdatePatient(patientModel);
                 TempData["SuccessMessage"] = "Patient has been successful updated.";
                 return RedirectToAction("Index");
-            }
-
-            return View(patientModel);
         }
         catch (Exception error)
         {
@@ -132,8 +127,6 @@ public class PatientController : Controller
     {
         try
         {
-            if (ModelState.IsValid)
-            {
                 bool PatientDeleted = _patientRepository.DeletePatient(patientModel.PatientId);
            
                 if (PatientDeleted)
@@ -141,10 +134,10 @@ public class PatientController : Controller
                     TempData["SuccessMessage"] = "Patient has been successful updated.";
                     return RedirectToAction("Index");
                 }    
-            }
 
             return View(patientModel);
         }
+        
         catch (Exception error)
         {
             TempData["ErrorMessage"] = $"Ops, problem when trying to delete patient. Error {error.Message}";

@@ -7,7 +7,7 @@
 ViewData["Title"] = "Delete LabTests";
 }
 
-<h1>Delete Lab Tests</h1>
+<h2 class="text-center">Delete Lab Tests</h2>
 <div class="text-center">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -15,7 +15,8 @@ ViewData["Title"] = "Delete LabTests";
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                        <form class="max-1 mx-md-4" asp-controller="LabTests" asp-action="DeleteLabTest" method="post">
+                        <form class="max-1 mx-md-4" asp-controller="LabTests" asp-action="DeleteLabTest" method="post"
+                              onsubmit="return confirm('Are you sure you want to delete Laboratory Test?')">
 
                             <input type="hidden" asp-for="LabTestId"/>
 

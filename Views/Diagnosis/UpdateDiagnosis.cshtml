@@ -20,7 +20,7 @@ return displayAttribute != null ? displayAttribute.Name : illness.ToString();
 }
 
 
-<h1 class="text-center">Update Diagnosis</h1>
+<h2 class="text-center">Update Diagnosis</h2>
 <div class="text-center">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -28,7 +28,8 @@ return displayAttribute != null ? displayAttribute.Name : illness.ToString();
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                        <form class="max-1 mx-md-4" asp-controller="Diagnosis" asp-action="UpdateDiagnosis" method="post">
+                        <form class="max-1 mx-md-4" asp-controller="Diagnosis" asp-action="UpdateDiagnosis" method="post"
+                              onsubmit="return confirm('Are you sure you want to update Diagnosis?')">
 
                             <input type="hidden" asp-for="DiagnosisId"/>
                             

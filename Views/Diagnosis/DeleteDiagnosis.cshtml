@@ -13,7 +13,8 @@ ViewData["Title"] = "Delete Diagnosis";
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                        <form class="max-1 mx-md-4" asp-controller="Diagnosis" asp-action="DeleteDiagnosis" method="post">
+                        <form class="max-1 mx-md-4" asp-controller="Diagnosis" asp-action="DeleteDiagnosis" method="post"
+                              onsubmit="return confirm('Are you sure you want to delete Diagnosis?')">
                             <input type="hidden" asp-for="DiagnosisId" />
 
                             <div class="d-flex flex-row align-items-center mb-1">
