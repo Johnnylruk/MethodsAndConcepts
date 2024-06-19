@@ -35,7 +35,7 @@ return displayAttribute != null ? displayAttribute.Name : tests.ToString();
 
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Type of Lab Tests</label>
-                                <select class="form-select text-center" asp-for="TypeOfTests" required>
+                                <select class="form-select text-center" asp-for="TypeOfTests" required oninvalid="this.setCustomValidity('Please select Laboratory Test.')" oninput="this.setCustomValidity('')">
                                     <option value="" disabled selected>Select</option>
                                     @foreach (var tests in Enum.GetValues(typeof(LaboratoryTests)).Cast<LaboratoryTests>())
                                     {

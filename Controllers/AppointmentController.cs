@@ -1,5 +1,6 @@
 using Lealthy_Hospital_Application_System.Enum;
 using Lealthy_Hospital_Application_System.Filters;
+using Lealthy_Hospital_Application_System.Helper;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -13,20 +14,24 @@ public class AppointmentController : Controller
     private readonly IAppointmentRepository _appointmentRepository;
     private readonly IStaffRepository _staffRepository;
     private readonly IPatientRepository _patientRepository;
+    private readonly IStaffSession _staffSession;
 
     public AppointmentController(IAppointmentRepository _appointmentRepository, IStaffRepository _staffRepository,
-                                 IPatientRepository _patientRepository)
+                                 IPatientRepository _patientRepository, IStaffSession _staffSession)
     {
         this._appointmentRepository = _appointmentRepository;
         this._staffRepository = _staffRepository;
         this._patientRepository = _patientRepository;
+        this._staffSession = _staffSession;
     }
     
     
     public IActionResult Index()
     {
         List<AppointmentModel> ListAppointments = _appointmentRepository.GetAllAppointments();
-       
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(ListAppointments);
     }
 

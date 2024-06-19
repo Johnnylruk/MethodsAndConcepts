@@ -1,4 +1,5 @@
 using Lealthy_Hospital_Application_System.Filters;
+using Lealthy_Hospital_Application_System.Helper;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +11,20 @@ namespace Lealthy_Hospital_Application_System.Controllers;
 public class StaffController : Controller
 {
     private readonly IStaffRepository _staffRepository;
+    private readonly IStaffSession _staffSession;
 
-    public StaffController(IStaffRepository _staffRepository)
+    public StaffController(IStaffRepository _staffRepository, IStaffSession _staffSession)
     {
         this._staffRepository = _staffRepository;
+        this._staffSession = _staffSession;
     }
     
     public IActionResult Index()
     {
+        var Staff = _staffSession.GetLoginSession();
         List<StaffModel> ListAllStaff = _staffRepository.GetAllStaff();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(ListAllStaff);    
     }
 

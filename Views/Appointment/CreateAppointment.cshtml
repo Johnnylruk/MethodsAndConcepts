@@ -19,18 +19,20 @@
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" asp-for="Name" placeholder="Type your name" required/>
+                                    <input type="text" class="form-control" asp-for="Name" placeholder="Type your name" required 
+                                           oninvalid="this.setCustomValidity('Please enter appointment name.')" oninput="this.setCustomValidity('')" />
                                 </div>
                             </div>
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Date</label>
-                                    <input type="text" id="datetimepicker" class="form-control" asp-for="Date" required/>
+                                    <input type="text" id="datetimepicker" class="form-control" asp-for="Date" required
+                                           oninvalid="this.setCustomValidity('Please enter appointment date and time.')" oninput="this.setCustomValidity('')"/>
                                 </div>
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Doctor</label>
-                                <select class="form-select" asp-for="StaffId" required>
+                                <select class="form-select" asp-for="StaffId" required oninvalid="this.setCustomValidity('Please select staff.')" oninput="this.setCustomValidity('')">
                                     <option value="" disabled selected>Select</option>
                                     @foreach (var doctor in ViewBag.Doctors )
                                     {
@@ -40,7 +42,7 @@
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Patients</label>
-                                <select class="form-select" asp-for="PatientId" required>
+                                <select class="form-select" asp-for="PatientId" required oninvalid="this.setCustomValidity('Please select patient.')" oninput="this.setCustomValidity('')">
                                     <option value="" disabled selected>Select</option>
                                     @foreach (var patient in ViewBag.Patients)
                                     {

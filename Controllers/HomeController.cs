@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Lealthy_Hospital_Application_System.Filters;
+using Lealthy_Hospital_Application_System.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Lealthy_Hospital_Application_System.Models;
 
@@ -8,15 +9,18 @@ namespace Lealthy_Hospital_Application_System.Controllers;
 [UserLoggedPage]
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IStaffSession _staffSession;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IStaffSession _staffSession)
     {
-        _logger = logger;
+        this._staffSession = _staffSession;
     }
 
     public IActionResult Index()
     {
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View();
     }
 

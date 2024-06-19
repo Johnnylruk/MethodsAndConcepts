@@ -18,29 +18,34 @@ ViewData["Title"] = "Create Patient";
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control text-center" asp-for="Name" placeholder="Type patient name" required/>
+                                    <input type="text" class="form-control text-center" asp-for="Name" placeholder="Type patient name" required
+                                           oninvalid="this.setCustomValidity('Please enter patient name.')" oninput="this.setCustomValidity('')"/>
                                 </div>
                             </div>
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Email</label>
-                                    <input type="text" class="form-control text-center" asp-for="Email" placeholder="Type patient email" required/>
+                                    <input type="email" class="form-control text-center" asp-for="Email" placeholder="Type patient email" required
+                                           oninvalid="this.setCustomValidity('Please enter patient email.')" oninput="this.setCustomValidity('')"/>
 
                                 </div>
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Mobile</label>
-                                <input type="text" class="form-control text-center" asp-for="Mobile" placeholder="Type your mobile" required/>
-
+                                <input type="tel" id="phone" class="form-control text-center" asp-for="Mobile" placeholder="Type your mobile" required
+                                       oninvalid="this.setCustomValidity('Please enter patient mobile number in the format: 07xxx xxxxxx')"
+                                       oninput="this.setCustomValidity('')"/>
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Address</label>
-                                <input type="text" class="form-control text-center" asp-for="Address" placeholder="Type your Address" required/>
+                                <input type="text" class="form-control text-center" asp-for="Address" placeholder="Type your Address" required
+                                       oninvalid="this.setCustomValidity('Please enter patient address.')" oninput="this.setCustomValidity('')"/>
 
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Birthdate</label>
-                                <input type="date" class="form-control text-center" asp-for="DateOfBirth" placeholder="Select your Birthdate" required/>
+                                <input type="date" class="form-control text-center" asp-for="DateOfBirth" placeholder="Select your Birthdate" required
+                                       oninvalid="this.setCustomValidity('Please enter patient date of birth.')" oninput="this.setCustomValidity('')"/>
                             </div>
                       
                             <br/>

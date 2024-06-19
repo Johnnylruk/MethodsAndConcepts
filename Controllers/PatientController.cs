@@ -52,6 +52,9 @@ public class PatientController : Controller
         else
         {
             List<PatientModel> ListPatients = _patientRepository.GetAllPatients(); 
+            var Staff = _staffSession.GetLoginSession();
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
             return View(ListPatients);
         }
        

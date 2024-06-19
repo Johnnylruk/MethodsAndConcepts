@@ -14,8 +14,7 @@ public class DiagnosisController : Controller
     private readonly IStaffSession _staffSession;
     private readonly IPatientRepository _patientRepository;
 
-    public DiagnosisController(IDiagnosisRepository _diagnosisRepository, IAppointmentRepository _appointmentRepository, 
-                                IStaffSession _staffSession, IPatientRepository _patientRepository)
+    public DiagnosisController(IDiagnosisRepository _diagnosisRepository, IStaffSession _staffSession, IPatientRepository _patientRepository)
     {
         this._diagnosisRepository = _diagnosisRepository;
         this._staffSession = _staffSession;
@@ -24,6 +23,9 @@ public class DiagnosisController : Controller
     
     public IActionResult Index()
     {
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         List<DiagnosisModel> ListAll = _diagnosisRepository.GetAllDiagnosis();
         return View(ListAll);
     }

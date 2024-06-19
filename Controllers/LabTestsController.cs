@@ -26,6 +26,9 @@ public class LabTestsController : Controller
     public IActionResult Index()
     {
         List<LabTestsModel> ListAllLabTests = _labTestsRepository.GetAllLabTests();
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(ListAllLabTests);
     }
 
