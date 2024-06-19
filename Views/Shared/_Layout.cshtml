@@ -22,10 +22,32 @@
         background-color: #f0f8ff; /* Light blue background */
     }
     header {
-        background-color: #1e90ff; /* Dodger blue header */
+        background-color: #1e90ff;
         color: white;
         padding: 20px;
-        text-align: center;
+        display: flex;
+        align-items: center; /* Center items vertically */
+        justify-content: space-between; /* Space out items */
+    }
+    header img {
+        height: 100px;
+        margin-right: 20px; /* Space between the logo and the heading */
+    }
+    header .header-content {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* Allow the content to grow and take available space */
+    }
+    header h1 {
+        margin: 0; /* Remove default margin */
+        font-size: 24px;
+        flex-grow: 1; /* Allow the heading to take available space */
+        text-align: center; /* Center the heading text */
+    }
+    header a {
+        margin-left: auto; /* Push the link to the far right */
+        color: white; /* Set text color */
+        text-decoration: none; /* Remove underline */
     }
     nav {
         display: flex;
@@ -73,10 +95,14 @@
 </style>
 <body>
 <header>
-    <h1>Lealthy Hospital Management System</h1>
+    <div class="header-content">
+        <img src="@Url.Content("~/images/logo.png")" alt="Lealthy Hospital Logo"/>
+        <h1 class="text-center">Lealthy Hospital Management System</h1>
+    </div>
     <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">
-        Hello, @(ViewBag.Staff)</a>
+        @(ViewBag.Staff)</a>
 </header>
+
 <nav>
     <a href="/Home/Index">Home</a>
     @if (ViewBag.Access == RoleAccessEnum.Administrator)
