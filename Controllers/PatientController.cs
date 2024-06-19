@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Lealthy_Hospital_Application_System.Controllers;
 
 [UserLoggedPage]
+[NotNursePage]
 
 public class PatientController : Controller
 {

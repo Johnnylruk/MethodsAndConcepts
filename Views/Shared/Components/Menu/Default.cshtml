@@ -11,26 +11,37 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>
+       
        @if (Model.Access == RoleAccessEnum.Administrator)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Staff" asp-action="Index">Staff</a>
             </li>
         }
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Appointments</a>
-        </li>
+        @if (Model.Access == RoleAccessEnum.Administrator || Model.Access == RoleAccessEnum.Receptionist)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Appointments</a>
+            </li>
+        }
+       
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Patient" asp-action="Index">Patients</a>
         </li>
+        @if (Model.Access == RoleAccessEnum.Administrator || Model.Access == RoleAccessEnum.Doctor)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Diagnosis" asp-action="Index">Diagnosis</a>
+            </li>
+        }
+        @if(Model.Access != RoleAccessEnum.Receptionist)
+        {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Diagnosis" asp-action="Index">Diagnosis</a>
-        </li>
+                <a class="nav-link text-dark" asp-area="" asp-controller="LabTests" asp-action="Index">Lab Tests</a>
+            </li>
+        }
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="LabTests" asp-action="Index">Lab Tests</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
