@@ -28,6 +28,7 @@ public class StaffRepository : IStaffRepository
     
     public StaffModel RegisterStaff(StaffModel staffModel)
     {
+        staffModel.Password = BCrypt.Net.BCrypt.HashPassword(staffModel.Password);
         _lhasdb.Staffs.Add(staffModel);
         _lhasdb.SaveChanges();
         return staffModel;

@@ -1,3 +1,4 @@
+using Lealthy_Hospital_Application_System.Enum;
 using Lealthy_Hospital_Application_System.Helper;
 using Lealthy_Hospital_Application_System.Models;
 using Lealthy_Hospital_Application_System.Repositories.Interfaces;
@@ -35,9 +36,42 @@ public class LoginController : Controller
         {
             if (ModelState.IsValid)
             {
-            StaffModel staff = _staffRepository.GetByLogin(loginModel.Login);
 
-            if (staff != null)
+                List<StaffModel> DBStaff = _staffRepository.GetAllStaff();
+                if (DBStaff.IsNullOrEmpty())
+                {
+                    var TestAdmin = new StaffModel()
+                    {
+                        Name = "TestAdmin",
+                        Email = "TestAdmin@gmail.com",
+                        Mobile = "784578965",
+                        Address = "Some Address",
+                        DateOfBirth = DateTime.Today,
+                        Access = RoleAccessEnum.Administrator,
+                        Login = "TestAdmin",
+                        Password = "TestAdmin@123"
+                    };
+                    _staffRepository.RegisterStaff(TestAdmin);
+                    loginModel.Login = TestAdmin.Login;
+                }
+                
+            StaffModel staff = _staffRepository.GetByLogin(loginModel.Login);
+            
+            bool isValidPassword = BCrypt.Net.BCrypt.Verify(loginModel.Password, staff.Password);
+
+            if (isValidPassword)
+            {
+                _staffSession.CreateLoginSession(staff);
+                return RedirectToAction("Index", "Home");
+            }
+
+            TempData["ErrorMessage"] = "Login and/or password invalid";
+            }
+
+            TempData["ErrorMessage"] = $"Login and/or password invalid";
+            return View("Index");
+            
+            /*if (staff != null)
             {
                 if (staff.ValidPassword(loginModel.Password))
                 {
@@ -49,11 +83,11 @@ public class LoginController : Controller
             TempData["ErrorMessage"] = $"Login and/or password invalid";
             
             }
-            return View("Index");
+            return View("Index");*/
         }
         catch (Exception error)
         {
-            TempData["ErrorMessage"] = $"Ops, could not delete staff. Error: {error.Message}";
+            TempData["ErrorMessage"] = $"Ops, could not login staff. Error: {error.Message}";
             return RedirectToAction("Index");
         }
     }

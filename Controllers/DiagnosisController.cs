@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lealthy_Hospital_Application_System.Controllers;
 
-
+[UserLoggedPage]
+[DoctorPage]
 public class DiagnosisController : Controller
 {
     private readonly IDiagnosisRepository _diagnosisRepository;
-    private readonly IAppointmentRepository _appointmentRepository;
     private readonly IStaffSession _staffSession;
     private readonly IPatientRepository _patientRepository;
 
@@ -18,7 +18,6 @@ public class DiagnosisController : Controller
                                 IStaffSession _staffSession, IPatientRepository _patientRepository)
     {
         this._diagnosisRepository = _diagnosisRepository;
-        this._appointmentRepository = _appointmentRepository;
         this._staffSession = _staffSession;
         this._patientRepository = _patientRepository;
     }

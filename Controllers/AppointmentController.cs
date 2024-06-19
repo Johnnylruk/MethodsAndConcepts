@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lealthy_Hospital_Application_System.Controllers;
 
-
+[ReceptionistPage]
+[UserLoggedPage]
 public class AppointmentController : Controller
 {
     private readonly IAppointmentRepository _appointmentRepository;

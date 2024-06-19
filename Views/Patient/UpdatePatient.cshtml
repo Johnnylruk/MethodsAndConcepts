@@ -20,34 +20,29 @@ ViewData["Title"] = "Update Patient";
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control text-center" asp-for="Name" placeholder="Type your name"/>
-                                    @Html.ValidationMessageFor(x => x.Name)
+                                    <input type="text" class="form-control text-center" asp-for="Name" readonly/>
                                 </div>
                             </div>
                             <div class="d-flex flex-row align-items-center mb-1">
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label">Email</label>
-                                    <input type="text" class="form-control text-center" asp-for="Email" placeholder="Type your name"/>
-                                    @Html.ValidationMessageFor(x => x.Email)
+                                    <input type="text" class="form-control text-center" asp-for="Email" readonly/>
 
                                 </div>
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Mobile</label>
-                                <input type="text" class="form-control text-center" asp-for="Mobile" placeholder="Type your mobile"/>
-                                @Html.ValidationMessageFor(x => x.Mobile)
+                                <input type="text" class="form-control text-center" asp-for="Mobile" readonly/>
 
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Address</label>
-                                <input type="text" class="form-control text-center" asp-for="Address" placeholder="Type your Address"/>
-                                @Html.ValidationMessageFor(x => x.Address)
+                                <input type="text" class="form-control text-center" asp-for="Address" readonly/>
 
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Birthdate</label>
-                                <input type="date" class="form-control text-center" asp-for="DateOfBirth" placeholder="Select your Birthdate"/>
-                                @Html.ValidationMessageFor(x => x.DateOfBirth)
+                                <input type="date" class="form-control text-center" asp-for="DateOfBirth" readonly/>
                             </div>
                             <br/>
                             <button type="submit" class="btn btn-primary">Confirm</button>

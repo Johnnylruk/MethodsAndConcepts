@@ -77,14 +77,25 @@ public class PatientController : Controller
     {
         try
         {
-            if (ModelState.IsValid)
+
+            PatientModel PatientDB = _patientRepository.GetAllPatients()
+                .FirstOrDefault(x => x.Email == patientModel.Email ||
+                                     x.Mobile == patientModel.Mobile);
+
+            if (PatientDB != null)
             {
+                if (PatientDB.Email == patientModel.Email)
+                {
+                    TempData["ErrorMessage"] = "This email already exist.";
+                }
+                if (PatientDB.Mobile == patientModel.Mobile)
+                {
+                    TempData["ErrorMessage"] = "This mobile already exist.";
+                }
+            }    
                 _patientRepository.RegisterPatient(patientModel);
                 TempData["SuccessMessage"] = "Patient has been successful created.";
                 return RedirectToAction("Index");
-            }
-
-            return View(patientModel);
         }
         catch (Exception error)
         {
