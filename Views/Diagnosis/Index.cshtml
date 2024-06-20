@@ -46,8 +46,12 @@ ViewBag.Title = "Diagnosis Page";
         <td>@diagnosis.PatientName</td>
         <td>@diagnosis.Treatment</td>
         <td>
-            <a role="button" class="btn btn-warning" asp-route-id="@diagnosis.DiagnosisId" asp-action="UpdateDiagnosis" asp-controller="Diagnosis">Update</a>
-            <a role="button" class="btn btn-danger" asp-route-id="@diagnosis.DiagnosisId" asp-action="DeleteDiagnosis" asp-controller="Diagnosis">Delete</a>
+            <a asp-route-id="@diagnosis.DiagnosisId" asp-action="UpdateDiagnosis" asp-controller="Diagnosis">
+                <i class="fas fa-notes-medical text-warning" title="Edit Diagnosis"></i>
+            </a>
+            <a asp-route-id="@diagnosis.DiagnosisId" asp-action="DeleteDiagnosis" asp-controller="Diagnosis">
+                <i class="fas fa-trash-alt text-danger" title="Delete Laboratory Test"></i>
+            </a>
         </td>
     </tr>
     }

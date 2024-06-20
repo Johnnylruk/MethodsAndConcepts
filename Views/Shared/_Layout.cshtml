@@ -97,12 +97,33 @@
 <header>
     <div class="header-content">
         <img src="@Url.Content("~/images/logo.png")" alt="Lealthy Hospital Logo"/>
-        <h1 class="text-center">Lealthy Hospital Management System</h1>
     </div>
     <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">
-        @(ViewBag.Staff)</a>
+        
+        @if(ViewBag.Access == RoleAccessEnum.Administrator)
+        {
+        <i class="fas fa-user-secret text-success" title="Online"></i>
+        @(ViewBag.Staff)
+        }
+         @if(ViewBag.Access == RoleAccessEnum.Receptionist)
+        {
+        <i class="fas fa-user-tie text-success" title="Online"></i>
+        @(ViewBag.Staff)
+        }
+         @if(ViewBag.Access == RoleAccessEnum.Doctor)
+        {
+        <i class="fas fa-user-md text-success" title="Online"></i>
+        @(ViewBag.Staff)
+        }
+         @if(ViewBag.Access == RoleAccessEnum.Nurse)
+        {
+        <i class="fas fa-user-nurse text-success" title="Online"></i>
+        @(ViewBag.Staff)
+        }
+        
+    
+        </a>
 </header>
-
 <nav>
     <a href="/Home/Index">Home</a>
     @if (ViewBag.Access == RoleAccessEnum.Administrator)

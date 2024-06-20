@@ -21,7 +21,9 @@
 }
 <h2 class="text-center">List of Staffs</h2>
 <div class="text-start">
-<a class="btn btn-success" asp-controller="Staff" asp-action="CreateStaff">Add Staff</a>
+    <a asp-controller="Staff" asp-action="CreateStaff">
+        <i class="fas fa-user-plus text-success fa-2x" title="Add Staff"></i>
+    </a>
 </div>
 <table class="table" id="tables">
     <thead>
@@ -34,7 +36,6 @@
         <th scope="col">Date of Birth</th>
         <th scope="col">Staff Role</th>
         <th scope="col"></th>
-        
     </tr>
     </thead>   
     <tbody>
@@ -51,8 +52,12 @@
                 <td>@staffs.DateOfBirth.ToString("dd/MM/yyyy")</td>
                 <td>@Html.DisplayFor(staffItem => staffs.Access)</td>
                 <td>
-                    <a role="button" class="btn btn-warning" asp-route-id="@staffs.StaffId" asp-action="UpdateStaff" asp-controller="Staff">Update</a>
-                    <a role="button" class="btn btn-danger" asp-route-id="@staffs.StaffId" asp-action="DeleteStaff" asp-controller="Staff">Delete</a>
+                    <a asp-route-id="@staffs.StaffId" asp-action="UpdateStaff" asp-controller="Staff">
+                        <i class="fas fa-user-edit text-warning" title="Edit Staff"></i>
+                    </a>
+                    <a asp-route-id="@staffs.StaffId" asp-action="DeleteStaff" asp-controller="Staff">
+                        <i class="fas fa-trash-alt text-danger" title="Delete Staff"></i>
+                    </a>
                 </td>
             </tr>
         }
