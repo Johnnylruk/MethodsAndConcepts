@@ -36,7 +36,9 @@ public class LabTestsController : Controller
     {
         var staff = _staffSession.GetLoginSession();
         var patient = _patientRepository.GetPatientById(id);
-
+        ViewBag.Staff = staff.Name;
+        ViewBag.Access = staff.Access;
+        
         var labTest = new LabTestsModel()
         {
             StaffId = staff.StaffId,
@@ -55,12 +57,18 @@ public class LabTestsController : Controller
     public IActionResult UpdateLabTest(int id)
     {
         LabTestsModel labTestsModel = _labTestsRepository.GetLabTestById(id);
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(labTestsModel);
     }
 
     public IActionResult DeleteLabTest(int id)
     {
         LabTestsModel labTestsModel = _labTestsRepository.GetLabTestById(id);
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(labTestsModel);
     }
 

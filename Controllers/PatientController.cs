@@ -62,17 +62,26 @@ public class PatientController : Controller
 
     public IActionResult CreatePatient()
     {
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View();
     }
 
     public IActionResult UpdatePatient(int PatientId)
     {
         PatientModel patientModel = _patientRepository.GetPatientById(PatientId);
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(patientModel);
     }
     public IActionResult DeletePatient(int PatientId)
     {
         PatientModel patientModel = _patientRepository.GetPatientById(PatientId);
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(patientModel);
     }
 

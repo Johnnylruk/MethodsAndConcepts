@@ -46,6 +46,8 @@ public class DiagnosisController : Controller
 
         ViewBag.PatientName = diagnosisModel.PatientName;
         ViewBag.StaffName = diagnosisModel.StaffName;
+        ViewBag.Staff = staffSession.Name;
+        ViewBag.Access = staffSession.Access;
         
         return View(diagnosisModel);
     }
@@ -53,12 +55,18 @@ public class DiagnosisController : Controller
     public IActionResult UpdateDiagnosis(int id)
     {
         DiagnosisModel diagnosisModel = _diagnosisRepository.GetDiagnosisById(id);
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(diagnosisModel);
     }
     
     public IActionResult DeleteDiagnosis(int id)
     {
         DiagnosisModel diagnosisModel = _diagnosisRepository.GetDiagnosisById(id);
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(diagnosisModel);
     }
     

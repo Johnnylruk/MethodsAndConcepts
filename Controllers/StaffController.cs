@@ -31,11 +31,18 @@ public class StaffController : Controller
 
     public IActionResult CreateStaff()
     {
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View();
     }
 
     public IActionResult UpdateStaff(int id)
     {
+         var Staff = _staffSession.GetLoginSession();
+                    ViewBag.Staff = Staff.Name;
+                    ViewBag.Access = Staff.Access;
+                    
         StaffModel staffId = _staffRepository.GetStaffById(id);
         var StaffWithoutPassword = new StaffWithoutPwdModel()
         {
@@ -53,6 +60,9 @@ public class StaffController : Controller
     public IActionResult DeleteStaff(int id)
     {
         StaffModel staffId = _staffRepository.GetStaffById(id);
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(staffId);
     }
     

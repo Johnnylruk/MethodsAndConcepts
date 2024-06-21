@@ -2,9 +2,30 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 301px ) and (max-width: 700px) {
+@media (min-width: 301px) and (max-width: 700px) {
   html {
     font-size: 16px;
+  }
+  .fixed-calendar {
+    left: 10px;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1024px) {
+  .fixed-calendar {
+    left: 20px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .fixed-calendar {
+    left: 30px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .fixed-calendar {
+    left: 40px;
   }
 }
 
@@ -53,5 +74,14 @@ body {
 .custom-text-color {
   color: white;
 }
-
-
+/*FixingCalendarAtLeft*/
+.fixed-calendar {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

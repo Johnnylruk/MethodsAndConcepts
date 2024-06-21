@@ -41,27 +41,36 @@ public class AppointmentController : Controller
             .Where(x => x.Access == RoleAccessEnum.Doctor).ToList();
         List<PatientModel> GetPatients = _patientRepository.GetAllPatients();
         
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         ViewBag.Doctors = GetDoctors;
         ViewBag.Patients = GetPatients;
 
         return View();
     }
 
-    public IActionResult UpdateAppointment(int id)
-    {
-        AppointmentModel getAppointmentModel = _appointmentRepository.GetAppointmentById(id);
-        List<StaffModel> GetDoctors = _staffRepository.GetAllStaff()
-            .Where(x => x.Access == RoleAccessEnum.Doctor).ToList();
-        List<PatientModel> GetPatients = _patientRepository.GetAllPatients();
-        
-        ViewBag.Doctors = GetDoctors;
-        ViewBag.Patients = GetPatients;
-        return View(getAppointmentModel);
-    }
+        public IActionResult UpdateAppointment(int id)
+        {
+            AppointmentModel getAppointmentModel = _appointmentRepository.GetAppointmentById(id);
+            List<StaffModel> GetDoctors = _staffRepository.GetAllStaff()
+                .Where(x => x.Access == RoleAccessEnum.Doctor).ToList();
+            List<PatientModel> GetPatients = _patientRepository.GetAllPatients();
+            var Staff = _staffSession.GetLoginSession();
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
+            
+            ViewBag.Doctors = GetDoctors;
+            ViewBag.Patients = GetPatients;
+            return View(getAppointmentModel);
+        }
 
     public IActionResult DeleteAppointment(int id)
     {
         AppointmentModel appointmentModel = _appointmentRepository.GetAppointmentById(id);
+        var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(appointmentModel);
     }
     

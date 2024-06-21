@@ -31,14 +31,21 @@ $(document).ready(function () {
 /*DatePicker*/
 
 document.addEventListener("DOMContentLoaded", function() {
+    var today = new Date();
+    var todayFormatted = today.getFullYear() + "-" + ('0' + (today.getMonth() + 1)).slice(-2) + "-" + ('0' + today.getDate()).slice(-2);
     var dateTimePicker = flatpickr("#datetimepicker", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
         time_24hr: true,
         minTime: "09:00",
         maxTime: "18:00",
+        minDate: todayFormatted,
+        inline: true, // I am using this for fix the callendar
+        onChange: function(selectedDates, dateStr, instance) {
+            document.querySelector("#datetimepicker").value = dateStr; // updating field with the selected date
+        },
         onReady: function(selectedDates, dateStr, instance) {
-            instance.input.setAttribute("required", "required");
+            document.querySelector("#datetimepicker").setAttribute("required", "required"); 
         }
     });
 

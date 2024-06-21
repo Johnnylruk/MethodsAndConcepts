@@ -64,7 +64,7 @@ return displayAttribute != null ? displayAttribute.Name : tests.ToString();
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Result</label>
-                                <select class="form-select text-center" asp-for="Result">
+                                <select class="form-select text-center" readonly asp-for="Result">
                                     <option value="" disabled selected>Select</option>
                                     <option value="@bool.TrueString" >Positive</option>
                                     <option value="@bool.FalseString">Negative</option>
