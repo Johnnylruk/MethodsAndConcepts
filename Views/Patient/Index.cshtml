@@ -22,10 +22,9 @@
 
 @if (ViewBag.Doctor != "Doctor")
 {
-    <div class="text-start">
-    <a asp-controller="Patient" asp-action="CreatePatient">
+    <div class="text-start icon-change-container">
         <i class="fas fa-user-plus text-success fa-2x" title="Add Patient"></i>
-    </a>
+        <a asp-controller="Patient" asp-action="CreatePatient" class="icon-change-link text-success">Add Patient</a>
     </div>
 }
 <table class="table" id="tables">

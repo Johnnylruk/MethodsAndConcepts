@@ -38,6 +38,8 @@ public class HomeController : Controller
     public IActionResult StaffMyDetails()
     {
         var Staff = _staffSession.GetLoginSession();
+        ViewBag.Staff = Staff.Name;
+        ViewBag.Access = Staff.Access;
         return View(Staff);
     }
 }

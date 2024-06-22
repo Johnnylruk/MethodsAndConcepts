@@ -85,3 +85,24 @@ body {
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/*PasswordStyleAdjust*/
+.icon-change-container {
+  display: flex;
+  align-items: center; 
+}
+
+.icon-change-container i {
+  margin-right: 10px; 
+}
+
+.icon-change-link {
+  font-size: 1.25rem; 
+  color: #007bff; 
+  text-decoration: none; 
+  transition: color 0.3s ease; 
+}
+
+.icon-change-link:hover {
+  color: #0056b3; 
+}
