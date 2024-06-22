@@ -63,15 +63,6 @@ return displayAttribute != null ? displayAttribute.Name : tests.ToString();
                                 <input type="hidden" asp-for="PatientId"/>
                             </div>
                             <div class="form-outline flex-fill mb-0">
-                                <label class="form-label">Result</label>
-                                <select class="form-select text-center" readonly asp-for="Result">
-                                    <option value="" disabled selected>Select</option>
-                                    <option value="@bool.TrueString" >Positive</option>
-                                    <option value="@bool.FalseString">Negative</option>
-                
-                                </select>
-                            </div>
-                            <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Description</label>
                                 <input type="text" class="form-control text-center" placeholder="Type a Description" style="width:100%; height:50px" asp-for="Description" />
                             </div>

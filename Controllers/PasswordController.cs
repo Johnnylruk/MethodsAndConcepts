@@ -37,16 +37,14 @@ public class PasswordController : Controller
                 TempData["SuccessMessage"] = "Password has been successful updated.";
                 return RedirectToAction("ChangePassword", changePasswordModel);
             }
-            //TempData["ErrorMessage"] = "Error when trying to update your password.";
+            TempData["ErrorMessage"] = "Error when trying to update your password. Contact your administrator.";
             return View("ChangePassword", changePasswordModel);
         }
         catch (Exception error)
         {
             TempData["ErrorMessage"] = $"Error when trying to update your password.{error.Message}";
             return View("ChangePassword", changePasswordModel);
- 
         }
-         
     }
   
 }
