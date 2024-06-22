@@ -1,0 +1,48 @@
+@model StaffModel
+
+@{
+    ViewData["Title"] = "My Details";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <h2 class="text-center">Staff Details</h2>
+</head>
+<body>
+<div class="container h-100 text-center">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-lg-12">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <label class="form-label"></label>
+                    <input class="form-control text-center" asp-for="Access" readonly/>
+                </div>
+                <div class="col-md-10">
+                    <label class="form-label"></label>
+                    <input class="form-control text-center" asp-for="Name" readonly/>
+                </div>
+                <div class="col-md-10">
+                    <label class="form-label"></label>
+                    <input class="form-control text-center" asp-for="Email" readonly/>
+                </div>
+                <div class="col-md-10">
+                    <label class="form-label"></label>
+                    <input type="text" class="form-control text-center" asp-for="DateOfBirth" readonly/>
+                </div>
+                <div class="col-md-10">
+                    <label class="form-label"></label>
+                    <input class="form-control text-center" asp-for="Login" readonly/>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<a class="btn btn-primary" asp-controller="Home" asp-action="StaffMyDetails" >Change your password</a>
+<a class="btn btn-close" asp-controller="Home" asp-action="Index" >Back</a>
+
+</body>
+</html>

@@ -34,4 +34,10 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult StaffMyDetails()
+    {
+        var Staff = _staffSession.GetLoginSession();
+        return View(Staff);
+    }
 }
