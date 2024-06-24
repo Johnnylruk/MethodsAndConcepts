@@ -28,13 +28,23 @@ public class LoginController : Controller
         _staffSession.RemoveLoginSession();
         return RedirectToAction("Index", "Login");
     }
-
+    
+    public IActionResult Privacy()
+    {
+        var Staff = _staffSession.GetLoginSession();
+        if (Staff != null)
+        {
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;    
+        }
+        return View();
+    }
+    
     [HttpPost]
     public IActionResult Login(LoginModel loginModel)
     {
         try
         {
-
                 List<StaffModel> DBStaff = _staffRepository.GetAllStaff();
                 if (DBStaff.IsNullOrEmpty())
                 {

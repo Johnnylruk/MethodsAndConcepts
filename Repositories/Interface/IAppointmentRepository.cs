@@ -8,6 +8,6 @@ public interface IAppointmentRepository
     List<int> GetAllBookedStaff();
     AppointmentModel GetAppointmentById(int id);
     bool CreateAppointment(AppointmentModel appointmentModel);
-    AppointmentModel UpdateAppointment(AppointmentModel appointmentModel);
+    bool UpdateAppointment(AppointmentModel appointmentModel);
     bool DeleteAppointment(int appointmentId);
 }

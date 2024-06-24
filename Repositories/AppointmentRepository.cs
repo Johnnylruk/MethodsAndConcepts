@@ -36,7 +36,8 @@ public class AppointmentRepository : IAppointmentRepository
     public bool CreateAppointment(AppointmentModel appointmentModel)
     {
         var appointments = _lhasdb.Appointments
-            .Where(x => x.Date == appointmentModel.Date);
+            .Where(x => x.Date == appointmentModel.Date && x.StaffName == appointmentModel.StaffName); 
+            
 
         if (appointments.IsNullOrEmpty())
         {
@@ -48,21 +49,28 @@ public class AppointmentRepository : IAppointmentRepository
         return false;
     }
 
-    public AppointmentModel UpdateAppointment(AppointmentModel appointmentModel)
+    public bool UpdateAppointment(AppointmentModel appointmentModel)
     {
         AppointmentModel appointmentDB = GetAppointmentById(appointmentModel.AppointmentId);
         if (appointmentDB == null) throw new Exception("Could not update appointment");
-
-        appointmentDB.Name = appointmentModel.Name;
-        appointmentDB.Date = appointmentModel.Date;
-        appointmentDB.StaffId = appointmentModel.StaffId;
-        appointmentDB.PatientId = appointmentModel.PatientId;
-        appointmentDB.StaffName = appointmentModel.StaffName;
-        appointmentDB.PatientName = appointmentModel.PatientName;
         
-        _lhasdb.Appointments.Update(appointmentDB);
-        _lhasdb.SaveChanges();
-        return appointmentDB;
+        var appointments = _lhasdb.Appointments
+            .Where(x => x.Date == appointmentModel.Date && x.StaffName == appointmentModel.StaffName);
+        if (appointments.IsNullOrEmpty())
+        {
+            appointmentDB.Name = appointmentModel.Name;
+            appointmentDB.Date = appointmentModel.Date;
+            appointmentDB.StaffId = appointmentModel.StaffId;
+            appointmentDB.PatientId = appointmentModel.PatientId;
+            appointmentDB.StaffName = appointmentModel.StaffName;
+            appointmentDB.PatientName = appointmentModel.PatientName;
+        
+            _lhasdb.Appointments.Update(appointmentDB);
+            _lhasdb.SaveChanges();
+            return true;
+        }
+
+        return false;
     }
 
     public bool DeleteAppointment(int appointmentId)

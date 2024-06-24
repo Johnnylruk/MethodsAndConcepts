@@ -35,7 +35,7 @@ return displayAttribute != null ? displayAttribute.Name : illness.ToString();
                             
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Type of Diagnosis</label>
-                                <select class="form-select" asp-for="TypeOfDiagnosis" required oninvalid="this.setCustomValidity('Please select diagnosis type.')" oninput="this.setCustomValidity('')">
+                                <select class="form-select text-center" asp-for="TypeOfDiagnosis" required oninvalid="this.setCustomValidity('Please select diagnosis type.')" oninput="this.setCustomValidity('')">
                                     <option value="" disabled selected>Select</option>
                                     @foreach (var illness in Enum.GetValues(typeof(IllnessesList)).Cast<IllnessesList>())
                                     {

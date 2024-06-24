@@ -36,7 +36,8 @@ ViewData["Title"] = "Update Patient";
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Mobile</label>
                                 <input type="tel" id="phone" class="form-control text-center" asp-for="Mobile" required
-                                       oninvalid="this.setCustomValidity('Please enter patient mobile number in the format: 07xxx xxxxxx')"
+                                       pattern="07[0-9]{3}[0-9]{6}"
+                                       oninvalid="this.setCustomValidity('Please enter patient mobile number in the format: 07xxxxxxxxx')"
                                        oninput="this.setCustomValidity('')"/>
                             </div>
                             <div class="form-outline flex-fill mb-0">

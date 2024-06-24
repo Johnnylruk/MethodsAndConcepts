@@ -88,7 +88,7 @@ public class AppointmentController : Controller
             
             if (!appointmentCreated)
             {
-                TempData["ErrorMessage"] = "Already exist an appointment for this time.";
+                TempData["ErrorMessage"] = $"{appointmentModel.StaffName} already have an appointment for this time.";
                 return RedirectToAction("Index");
             }
             
@@ -115,7 +115,13 @@ public class AppointmentController : Controller
             
             if (appointmentModel != null)
             {
-                _appointmentRepository.UpdateAppointment(appointmentModel);
+                bool appointmentUpdated =  _appointmentRepository.UpdateAppointment(appointmentModel);
+                if (!appointmentUpdated)
+                {
+                    TempData["ErrorMessage"] = $"{appointmentModel.StaffName} already have an appointment for this time.";
+                    return RedirectToAction("Index");
+                }
+ 
                 TempData["SuccessMessage"] = "Appointment has been successful updated.";
                 return RedirectToAction("Index");
             }

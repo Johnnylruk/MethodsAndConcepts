@@ -9,17 +9,68 @@
     <link rel="stylesheet" href="~/Lealthy_Hospital_Application_System.styles.css" asp-append-version="true"/>
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 </head>
+<style>
+ 
+    header {
+        background-color: #1e90ff;
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center; 
+        justify-content: space-between; 
+    }
+    header img {
+        height: 100px;
+        margin-right: 20px; 
+    }
+    header .header-content {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; 
+    }
+    header h1 {
+        margin: 0; 
+        font-size: 24px;
+        flex-grow: 1; 
+        text-align: center; 
+    }
+    header a {
+        margin-left: auto; 
+        color: white; 
+        text-decoration: none; 
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        background-color: #4682b4; 
+        padding: 10px;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+    }
+    nav a:hover {
+        text-decoration: underline;
+    }
+    footer {
+        background-color: #1e90ff;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+    }
+</style>
+
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Lealthy Hospital Application System</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
+     <div class="header-content">
+        <img src="@Url.Content("~/images/logo.png")" alt="Lealthy Hospital Logo"/>
+    </div>
 </header>
 <div class="container">
     <main role="main" class="pb-3">
@@ -27,9 +78,9 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2024 - Lealthy Hospital Application System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<footer class="border-top footer text-muted text-white">
+    <div class="text-center text-white">
+        &copy; 2024 - Lealthy Hospital Application System - <a asp-area="" asp-controller="Login" asp-action="Privacy" class="text-warning">Privacy</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
