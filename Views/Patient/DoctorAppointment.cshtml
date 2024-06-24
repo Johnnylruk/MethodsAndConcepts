@@ -1,0 +1,49 @@
+@model List<PatientModel>
+@{
+    ViewBag.Title = "Appointment Page";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+        @TempData["ErrorMessage"]
+
+    </div>
+}
+<h2 class="text-center">List of Appointment</h2>
+
+<table class="table" id="tables">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Hour</th>
+        <th scope="col">Patient</th>
+    </tr>
+    </thead>   
+    <tbody>
+    @if (ViewBag.Appointment != null)
+    {
+        foreach (PatientModel appointments in ViewBag.Appointment)
+        {
+            @foreach (var doctorAppointment in appointments.Appointments)
+            {
+                <tr>
+                    <td>@doctorAppointment.Name</td>
+                    <td>@doctorAppointment.Date.ToString("dd/MM/yyyy")</td>
+                    <td>@doctorAppointment.Date.ToString("HH:mm")</td>
+                    <td>@doctorAppointment.PatientName</td>
+                </tr>
+            }
+        }
+    }
+    </tbody>
+</table>

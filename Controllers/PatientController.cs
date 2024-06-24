@@ -44,6 +44,8 @@ public class PatientController : Controller
             if (distinctPatients.Count != 0)
             {
                 ViewBag.Doctor = "Doctor";
+                ViewBag.Staff = staffSession.Name;
+                ViewBag.Access = staffSession.Access;
                 return View(distinctPatients);    
             }
             TempData["ErrorMessage"] = "You do not have any Patient";
@@ -52,14 +54,43 @@ public class PatientController : Controller
         else
         {
             List<PatientModel> ListPatients = _patientRepository.GetAllPatients(); 
-            var Staff = _staffSession.GetLoginSession();
-            ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Staff = staffSession.Name;
+            ViewBag.Access = staffSession.Access;
             return View(ListPatients);
         }
        
     }
 
+    public IActionResult DoctorAppointment()
+    {
+        var staffSession = _staffSession.GetLoginSession();
+        if (staffSession.Access == RoleAccessEnum.Doctor)
+        {
+            var appointments = _appointmentRepository.GetAllAppointments()
+                .Where(ap => ap.StaffId == staffSession.StaffId)
+                .ToList();
+
+            var distinctPatients = appointments
+                .Where(ap => ap.Patient != null)
+                .Select(ap => ap.Patient)
+                .GroupBy(p => p.PatientId)
+                .Select(g => g.First())
+                .ToList();
+            
+            ViewBag.Staff = staffSession.Name;
+            ViewBag.Access = staffSession.Access;
+            
+            if (distinctPatients.Count != 0)
+            {
+                ViewBag.Doctor = "Doctor";
+                ViewBag.Appointment = distinctPatients;
+                return View();
+            }
+        }
+            TempData["ErrorMessage"] = "You do not have any Appointment";
+            return RedirectToAction("Index", "Home");
+    }
+    
     public IActionResult CreatePatient()
     {
         var Staff = _staffSession.GetLoginSession();

@@ -134,6 +134,10 @@
     {
         <a href="/Appointment/Index">Appointments</a>
     }
+    @if (ViewBag.Access == RoleAccessEnum.Doctor)
+    {
+    <a href="/Patient/DoctorAppointment">Appointments</a>
+    }
     @if (ViewBag.Access != RoleAccessEnum.Nurse)
     {
         <a href="/Patient/Index">Patients</a>

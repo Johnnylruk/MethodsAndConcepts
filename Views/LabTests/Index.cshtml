@@ -61,10 +61,10 @@ ViewBag.Title = "LabTests Page";
         }
         <td>@tests.Description</td>
         <td>
-            <a role="button" class="btn btn-warning" asp-route-id="@tests.LabTestId" asp-action="UpdateLabTest" asp-controller="LabTests">
+            <a asp-route-id="@tests.LabTestId" asp-action="UpdateLabTest" asp-controller="LabTests">
                 <i class="fas fa-edit text-warning" title="Edit Laboratory Test"></i>
             </a>
-            <a role="button" class="btn btn-danger" asp-route-id="@tests.LabTestId" asp-action="DeleteLabTest" asp-controller="LabTests">
+            <a asp-route-id="@tests.LabTestId" asp-action="DeleteLabTest" asp-controller="LabTests">
                 <i class="fas fa-trash-alt text-danger" title="Delete Laboratory Test"></i>
             </a>
         </td>
