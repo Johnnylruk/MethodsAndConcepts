@@ -34,4 +34,26 @@ public class PasswordChange : IPasswordChange
         _lhasdb.SaveChanges();
         return StaffDB;
     }
+
+    public StaffModel ResetPassword(StaffModel staffModel)
+    {
+        StaffModel StaffDB = _staffRepository.GetStaffById(staffModel.StaffId);
+
+        if (StaffDB == null) throw new Exception("Error trying to send password send password");
+        StaffDB.Password = staffModel.Password;
+        _lhasdb.Staffs.Update(StaffDB);
+        _lhasdb.SaveChanges();
+        return StaffDB;
+    }
+
+    public StaffModel GetStaffByLoginAndEmail(string login, string email)
+    {
+        return _lhasdb.Staffs.FirstOrDefault(
+            x => x.Email.ToUpper() == email.ToUpper() && x.Login.ToUpper() == login.ToUpper());
+    }
+
+    public string GeneratePassword()
+    {
+            return Guid.NewGuid().ToString().Substring(0, 8);
+    }
 }

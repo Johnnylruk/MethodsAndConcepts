@@ -25,6 +25,7 @@ builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
 builder.Services.AddScoped<ILabTestsRepository, LabTestsRepository>();
 builder.Services.AddScoped<IStaffSession, StaffSession>();
 builder.Services.AddScoped<IPasswordChange, PasswordChange>();
+builder.Services.AddScoped<IEmail, Email>();
 
 builder.Services.AddSession(o =>
 {
