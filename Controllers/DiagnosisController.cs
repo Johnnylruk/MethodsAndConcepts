@@ -1,3 +1,4 @@
+using Lealthy_Hospital_Application_System.Enum;
 using Lealthy_Hospital_Application_System.Filters;
 using Lealthy_Hospital_Application_System.Helper;
 using Lealthy_Hospital_Application_System.Models;
@@ -23,7 +24,24 @@ public class DiagnosisController : Controller
     
     public IActionResult Index()
     {
+        
         var Staff = _staffSession.GetLoginSession();
+        if (Staff.Access == RoleAccessEnum.Doctor)
+        {
+            var diagnosis = _diagnosisRepository.GetAllDiagnosis()
+                .Where(ap => ap.StaffId == Staff.StaffId)
+                .ToList(); 
+    
+            if (diagnosis.Count != 0)
+            {
+                ViewBag.Doctor = "Doctor";
+                ViewBag.Staff = Staff.Name;
+                ViewBag.Access = Staff.Access;
+                return View(diagnosis);    
+            }
+            TempData["ErrorMessage"] = "You do not have any Diagnosis";
+            return RedirectToAction("Index", "Home");
+        }
         ViewBag.Staff = Staff.Name;
         ViewBag.Access = Staff.Access;
         List<DiagnosisModel> ListAll = _diagnosisRepository.GetAllDiagnosis();
@@ -54,20 +72,48 @@ public class DiagnosisController : Controller
 
     public IActionResult UpdateDiagnosis(int id)
     {
-        DiagnosisModel diagnosisModel = _diagnosisRepository.GetDiagnosisById(id);
-        var Staff = _staffSession.GetLoginSession();
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
-        return View(diagnosisModel);
+        try
+        {
+            DiagnosisModel diagnosisModel = _diagnosisRepository.GetDiagnosisById(id);
+            var Staff = _staffSession.GetLoginSession();
+            
+            if (diagnosisModel != null)
+            {
+                ViewBag.Staff = Staff.Name;
+                ViewBag.Access = Staff.Access;
+                return View(diagnosisModel);    
+            }
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception error)
+        {
+                 return RedirectToAction("Index", "Restrict");
+        }
     }
     
     public IActionResult DeleteDiagnosis(int id)
     {
-        DiagnosisModel diagnosisModel = _diagnosisRepository.GetDiagnosisById(id);
-        var Staff = _staffSession.GetLoginSession();
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
-        return View(diagnosisModel);
+        try
+        {
+            DiagnosisModel diagnosisModel = _diagnosisRepository.GetDiagnosisById(id);
+            var Staff = _staffSession.GetLoginSession();
+            if (diagnosisModel != null)
+            {
+                ViewBag.Staff = Staff.Name;
+                ViewBag.Access = Staff.Access;
+                return View(diagnosisModel); 
+            }
+           
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception error)
+        {
+            return RedirectToAction("Index", "Restrict");
+        }
     }
     
     [HttpPost]

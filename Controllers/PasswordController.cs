@@ -78,17 +78,17 @@ public class PasswordController : Controller
                 {
                     staffModel.Password = BCrypt.Net.BCrypt.HashPassword(NewPassword);
                     _passwordChange.ResetPassword(staffModel);
+                    TempData["SuccessMessage"] = "You new password has been sent to your email.";
                     return RedirectToAction("ResetPassword");
                 }
             }
             }
-
             return RedirectToAction("ResetPassword");
         }
-        catch (Exception e)
+        catch (Exception error)
         {
-            Console.WriteLine(e);
-            throw;
+            TempData["ErrorMessage"] =$"Error when trying to send your new password. {error.Message}";
+            return RedirectToAction("Index", "Login");
         }
     }
   

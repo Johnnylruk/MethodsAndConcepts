@@ -107,7 +107,6 @@ public class AppointmentController : Controller
     {
         try
         {
-            //LEMBRAR DE FAZER A VALIDACAO PARA APPOINTMENT DUPLICADO
             StaffModel StaffId = _staffRepository.GetStaffById(appointmentModel.StaffId);
             PatientModel PatientId = _patientRepository.GetPatientById(appointmentModel.PatientId);
             appointmentModel.StaffName = StaffId.Name;

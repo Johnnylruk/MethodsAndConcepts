@@ -22,11 +22,28 @@ public class LabTestsController : Controller
         this._patientRepository = _patientRepository;
         this._staffSession = _staffSession;
     }
-    
+
     public IActionResult Index()
     {
-        List<LabTestsModel> ListAllLabTests = _labTestsRepository.GetAllLabTests();
         var Staff = _staffSession.GetLoginSession();
+        if (Staff.Access == RoleAccessEnum.Doctor)
+        {
+            var labTests = _labTestsRepository.GetAllLabTests()
+                .Where(ap => ap.StaffId == Staff.StaffId)
+                .ToList();
+
+            if (labTests.Count != 0)
+            {
+                ViewBag.Doctor = "Doctor";
+                ViewBag.Staff = Staff.Name;
+                ViewBag.Access = Staff.Access;
+                return View(labTests);
+            }
+            TempData["ErrorMessage"] = "You do not have any Laboratory Test";
+            return RedirectToAction("Index", "Home");
+        }
+
+        List<LabTestsModel> ListAllLabTests = _labTestsRepository.GetAllLabTests();
         ViewBag.Staff = Staff.Name;
         ViewBag.Access = Staff.Access;
         return View(ListAllLabTests);
@@ -38,7 +55,7 @@ public class LabTestsController : Controller
         var patient = _patientRepository.GetPatientById(id);
         ViewBag.Staff = staff.Name;
         ViewBag.Access = staff.Access;
-        
+
         var labTest = new LabTestsModel()
         {
             StaffId = staff.StaffId,
@@ -50,26 +67,55 @@ public class LabTestsController : Controller
 
         ViewBag.PatientName = labTest.PatientName;
         ViewBag.StaffName = labTest.StaffName;
-        
+
         return View(labTest);
     }
 
     public IActionResult UpdateLabTest(int id)
     {
-        LabTestsModel labTestsModel = _labTestsRepository.GetLabTestById(id);
-        var Staff = _staffSession.GetLoginSession();
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
-        return View(labTestsModel);
+
+        try
+        {
+            LabTestsModel labTestsModel = _labTestsRepository.GetLabTestById(id);
+            var Staff = _staffSession.GetLoginSession();
+
+            if (labTestsModel != null)
+            {
+                ViewBag.Staff = Staff.Name;
+                ViewBag.Access = Staff.Access;
+                return View(labTestsModel);
+            }
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception error)
+        {
+            return RedirectToAction("Index", "Restrict");
+        }
     }
 
     public IActionResult DeleteLabTest(int id)
     {
-        LabTestsModel labTestsModel = _labTestsRepository.GetLabTestById(id);
-        var Staff = _staffSession.GetLoginSession();
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
-        return View(labTestsModel);
+        try
+        {
+            LabTestsModel labTestsModel = _labTestsRepository.GetLabTestById(id);
+            var Staff = _staffSession.GetLoginSession();
+
+            if (labTestsModel != null)
+            {
+                ViewBag.Staff = Staff.Name;
+                ViewBag.Access = Staff.Access;
+                return View(labTestsModel);
+            }
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception error)
+        {
+            return RedirectToAction("Index", "Restrict");
+        }
     }
 
     [HttpPost]
