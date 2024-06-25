@@ -114,6 +114,36 @@ public class StaffController : Controller
     {
         try
         {
+            var Staff = _staffSession.GetLoginSession();
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
+            
+            StaffModel duplicateEmailStaff = _staffRepository.GetAllStaff()
+                .FirstOrDefault(x => x.Email == staffModel.Email &&
+                                     x.StaffId != staffModel.StaffId);
+            
+            StaffModel duplicateMobileStaff = _staffRepository.GetAllStaff()
+                .FirstOrDefault(x => x.Mobile == staffModel.Mobile &&
+                                     x.StaffId != staffModel.StaffId); 
+            StaffModel duplicateLoginStaff = _staffRepository.GetAllStaff()
+                .FirstOrDefault(x => x.Login == staffModel.Login &&
+                                     x.StaffId != staffModel.StaffId);
+
+            if (duplicateEmailStaff != null)
+            {
+                TempData["ErrorMessage"] = "This email already exist.";
+                return View();
+            }
+            if (duplicateMobileStaff != null)
+            {
+                TempData["ErrorMessage"] = "This mobile already exist.";
+                return View();
+            } 
+            if (duplicateLoginStaff != null)
+            {
+                TempData["ErrorMessage"] = "This login already exist.";
+                return View();
+            }
             _staffRepository.UpdateStaff(staffModel);
             TempData["SuccessMessage"] = "Staff has been updated.";
             return RedirectToAction("Index");

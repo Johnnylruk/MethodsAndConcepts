@@ -18,6 +18,21 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
 }
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-success" role="alert">
+    <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+    @TempData["SuccessMessage"]
+</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-danger" role="alert">
+    <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+    @TempData["ErrorMessage"]
+</div>
+}
+
 <h2 class="text-center">Update Staff</h2>
 <div class="text-center">
     <div class="container h-100">
@@ -58,7 +73,7 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Birthdate</label>
-                                <input type="date" class="form-control text-center" asp-for="DateOfBirth" placeholder="Select your Birthdate" required
+                                <input type="text" class="form-control text-center" asp-for="DateOfBirth" placeholder="Select your Birthdate" required
                                        oninvalid="this.setCustomValidity('Please enter staff birth date.')" oninput="this.setCustomValidity('')"/>
                             </div>
                             <div class="form-outline flex-fill mb-0">
