@@ -158,7 +158,7 @@ public class Patient_Tests
         result.Should().NotBeNull();
     }
     [Fact]
-    public void CreatePatient_Should_SucessfulCreate()
+    public void CreatePatient_Should_SuccessfulCreate()
     {
         //Arrange
         var patients = CreateListOfPatients();
@@ -212,4 +212,102 @@ public class Patient_Tests
         _patientController.TempData["ErrorMessage"].Should().Be("This email already exist.");
     }
     
+    [Fact]
+    public void UpdatePatient_Should_ReturnView()
+    {
+        //Arrange
+        var staff = CreateStaff();
+        var patient = CreatePatient();
+
+        _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
+        
+        //Act
+        var result = _patientController.UpdatePatient(patient.PatientId) as ViewResult;
+        
+        //Assert
+        result.Should().NotBeNull();
+    }
+    
+    [Fact]
+    public void UpdatePatient_Should_SuccessfulUpdate()
+    {
+        //Arrange
+        var patients = CreateListOfPatients();
+        var httpContext = new DefaultHttpContext();
+        var patient = CreatePatient();
+        
+        _patientRepository.Setup(x => x.GetAllPatients()).Returns(patients);
+        _patientRepository.Setup(x => x.UpdatePatient(patient)).Verifiable();
+        _patientController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["SuccessMessage"] = "Patient has been successful updated."
+        };
+        
+        //Act
+        var result = _patientController.CreatePatient(patient) as RedirectToActionResult;
+        
+        //Assert
+        result.Should().NotBeNull();
+        result.ActionName.Should().Be("Index");
+        _patientController.TempData["SuccessMessage"].Should().Be("Patient has been successful updated.");
+    }
+    [Fact]
+    public void UpdatePatient_Should_NotUpdateWhenDuplicated()
+    {
+        //Arrange
+        var patients = CreateListOfPatients();
+        var patient = CreatePatient();
+        var httpContext = new DefaultHttpContext();
+        var staff = CreateStaff();
+
+        _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
+        _patientRepository.Setup(x => x.GetAllPatients()).Returns(patients);
+        _patientRepository.Setup(x => x.UpdatePatient(patient)).Verifiable();
+        _patientController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["ErrorMessage"] = "This email already exist."
+        };
+        
+        //Act
+        _patientController.UpdatePatient(patient);
+        
+        //Assert
+        _patientController.TempData["ErrorMessage"].Should().Be("This email already exist.");
+    }
+    [Fact]
+    public void DeletePatient_Should_ReturnView()
+    {
+        //Arrange
+        var staff = CreateStaff();
+        var patient = CreatePatient();
+
+        _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
+        
+        //Act
+        var result = _patientController.DeletePatient(patient.PatientId) as ViewResult;
+        
+        //Assert
+        result.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void DeletePatient_Should_DeletePatientWhenSuccessful()
+    {
+        //Arrange
+        var patient = CreatePatient();
+        var httpContext = new DefaultHttpContext();
+
+        _patientRepository.Setup(x => x.DeletePatient(patient.PatientId)).Returns(true);
+        _patientController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["SuccessMessage"] = "Patient has been successful deleted."
+        };
+        //Act
+        var restult = _patientController.DeletePatient(patient) as RedirectToActionResult;
+        
+        //Assert
+        restult.ActionName.Should().Be("Index");
+        _patientController.TempData["SuccessMessage"].Should().Be("Patient has been successful deleted.");
+
+    }
 }

@@ -201,7 +201,7 @@ public class PatientController : Controller
            
                 if (PatientDeleted)
                 {
-                    TempData["SuccessMessage"] = "Patient has been successful updated.";
+                    TempData["SuccessMessage"] = "Patient has been successful deleted.";
                     return RedirectToAction("Index");
                 }    
 
