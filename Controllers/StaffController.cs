@@ -98,7 +98,7 @@ public class StaffController : Controller
                 
             }
                 _staffRepository.RegisterStaff(staffModel);
-                TempData["SuccessMessage"] = "Staff has been createted.";
+                TempData["SuccessMessage"] = "Staff has been created.";
                 return RedirectToAction("Index");
 
         }
