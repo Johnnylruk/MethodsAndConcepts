@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lealthy Hospital Application System", "Lealthy Hospital Application System.csproj", "{E025A153-C6EF-4FC4-BC71-C7F82CF9D7E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LHAS.Tests", "..\LHAS.Tests\LHAS.Tests.csproj", "{C3E09477-732A-4308-AC63-ADB892FF44DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{E025A153-C6EF-4FC4-BC71-C7F82CF9D7E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E025A153-C6EF-4FC4-BC71-C7F82CF9D7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E025A153-C6EF-4FC4-BC71-C7F82CF9D7E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E09477-732A-4308-AC63-ADB892FF44DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E09477-732A-4308-AC63-ADB892FF44DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E09477-732A-4308-AC63-ADB892FF44DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E09477-732A-4308-AC63-ADB892FF44DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
