@@ -121,7 +121,10 @@ public class PatientController : Controller
     {
         try
         {
-
+            var Staff = _staffSession.GetLoginSession();
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
+            
             PatientModel PatientDB = _patientRepository.GetAllPatients()
                 .FirstOrDefault(x => x.Email == patientModel.Email ||
                                      x.Mobile == patientModel.Mobile);
@@ -131,10 +134,12 @@ public class PatientController : Controller
                 if (PatientDB.Email == patientModel.Email)
                 {
                     TempData["ErrorMessage"] = "This email already exist.";
+                    return View();
                 }
                 if (PatientDB.Mobile == patientModel.Mobile)
                 {
                     TempData["ErrorMessage"] = "This mobile already exist.";
+                    return View();
                 }
             }    
                 _patientRepository.RegisterPatient(patientModel);
@@ -153,6 +158,28 @@ public class PatientController : Controller
     {
         try
         {
+             var Staff = _staffSession.GetLoginSession();
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.Access;
+            
+            PatientModel duplicateEmailPatient = _patientRepository.GetAllPatients()
+                .FirstOrDefault(x => x.Email == patientModel.Email &&
+                                     x.PatientId != patientModel.PatientId);
+            
+            PatientModel duplicateMobilePatient = _patientRepository.GetAllPatients()
+                .FirstOrDefault(x => x.Mobile == patientModel.Mobile &&
+                                     x.PatientId != patientModel.PatientId);
+
+            if (duplicateEmailPatient != null)
+            {
+                TempData["ErrorMessage"] = "This email already exist.";
+                return View();
+            }
+            if (duplicateMobilePatient != null)
+            {
+                TempData["ErrorMessage"] = "This mobile already exist.";
+                return View();
+            }
                 _patientRepository.UpdatePatient(patientModel);
                 TempData["SuccessMessage"] = "Patient has been successful updated.";
                 return RedirectToAction("Index");

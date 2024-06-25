@@ -113,7 +113,6 @@ public class Patient_Tests
         var httpContext = new DefaultHttpContext();
         var patientList = CreateListOfPatients();
         var appointmentList = new List<AppointmentModel>();
-        var patient = CreatePatient();
         var staff = CreateStaff();
         staff.Access = RoleAccessEnum.Doctor;
 
@@ -145,9 +144,72 @@ public class Patient_Tests
     
     
     [Fact]
-    public void CreatePatient_Should_SuccessfulCreated()
+    public void CreatePatient_Should_ReturnView()
     {
+        //Arrange
+        var staff = CreateStaff();
+
+        _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
         
+        //Act
+        var result = _patientController.CreatePatient() as ViewResult;
+        
+        //Assert
+        result.Should().NotBeNull();
+    }
+    [Fact]
+    public void CreatePatient_Should_SucessfulCreate()
+    {
+        //Arrange
+        var patients = CreateListOfPatients();
+        var httpContext = new DefaultHttpContext();
+        PatientModel patient = new PatientModel()
+        {
+            PatientId = 10,
+            Name = "SomeName",
+            Mobile = "07853651354",
+            Address = "SomeAddress",
+            DateOfBirth = DateTime.Today
+        };
+        
+        
+        _patientRepository.Setup(x => x.GetAllPatients()).Returns(patients);
+        _patientRepository.Setup(x => x.RegisterPatient(patient)).Verifiable();
+        _patientController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["SuccessMessage"] = "Patient has been successful created."
+        };
+        
+        //Act
+        var result = _patientController.CreatePatient(patient) as RedirectToActionResult;
+        
+        //Assert
+        result.Should().NotBeNull();
+        result.ActionName.Should().Be("Index");
+        _patientController.TempData["SuccessMessage"].Should().Be("Patient has been successful created.");
+    }
+    [Fact]
+    public void CreatePatient_Should_NotCreateWhenDuplicated()
+    {
+        //Arrange
+        var patients = CreateListOfPatients();
+        var patient = CreatePatient();
+        var httpContext = new DefaultHttpContext();
+        var staff = CreateStaff();
+
+        _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
+        _patientRepository.Setup(x => x.GetAllPatients()).Returns(patients);
+        _patientRepository.Setup(x => x.RegisterPatient(patient)).Verifiable();
+        _patientController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["ErrorMessage"] = "This email already exist."
+        };
+        
+        //Act
+        _patientController.CreatePatient(patient);
+        
+        //Assert
+        _patientController.TempData["ErrorMessage"].Should().Be("This email already exist.");
     }
     
 }
