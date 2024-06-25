@@ -48,7 +48,7 @@ public class PatientController : Controller
                 ViewBag.Access = staffSession.Access;
                 return View(distinctPatients);    
             }
-            TempData["ErrorMessage"] = "You do not have any Patient";
+            TempData["ErrorMessage"] = "You do not have any Patient.";
             return RedirectToAction("Index", "Home");
         }
         else
