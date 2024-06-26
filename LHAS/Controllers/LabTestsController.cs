@@ -145,7 +145,7 @@ public class LabTestsController : Controller
             labTestsModel.Staff = getStaffModel;
             
             _labTestsRepository.UpdateLabTest(labTestsModel);
-            TempData["SuccessMessage"] = "Laboratory Test has been successful updated";
+            TempData["SuccessMessage"] = "Laboratory Test has been successful updated.";
             return RedirectToAction("Index");    
 
         }
@@ -164,7 +164,7 @@ public class LabTestsController : Controller
             bool deleted = _labTestsRepository.RemoveLabTest(labTestsModel.LabTestId);
             if (deleted)
             {
-                TempData["SuccessMessage"] = "Laboratory Test has been successful deleted";
+                TempData["SuccessMessage"] = "Laboratory Test has been successful deleted.";
                 return RedirectToAction("Index");
             }
 
