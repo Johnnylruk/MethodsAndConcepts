@@ -39,7 +39,7 @@ public class DiagnosisController : Controller
                 ViewBag.Access = Staff.Access;
                 return View(diagnosis);    
             }
-            TempData["ErrorMessage"] = "You do not have any Diagnosis";
+            TempData["ErrorMessage"] = "You do not have any Diagnosis.";
             return RedirectToAction("Index", "Home");
         }
         ViewBag.Staff = Staff.Name;
@@ -122,7 +122,7 @@ public class DiagnosisController : Controller
         try
         {
             _diagnosisRepository.CreateDiagnosis(diagnosisModel);
-            TempData["SuccessMessage"] = "Diagnosis has been successful created";
+            TempData["SuccessMessage"] = "Diagnosis has been successful created.";
             return RedirectToAction("Index");
         }
         catch (Exception error)
@@ -144,7 +144,7 @@ public class DiagnosisController : Controller
             diagnosisModel.Date = DateTime.Now;
             
             _diagnosisRepository.UpdateDiagnosis(diagnosisModel);
-            TempData["SuccessMessage"] = "Diagnosis has been successful updated";
+            TempData["SuccessMessage"] = "Diagnosis has been successful updated.";
             return RedirectToAction("Index");    
 
         }
@@ -163,7 +163,7 @@ public class DiagnosisController : Controller
             bool deleted = _diagnosisRepository.DeleteDiagnosis(diagnosisModel.DiagnosisId);
             if (deleted)
             {
-                TempData["SuccessMessage"] = "Diagnosis has been successful deleted";
+                TempData["SuccessMessage"] = "Diagnosis has been successful deleted.";
                 return RedirectToAction("Index");  
             }
             return View(diagnosisModel);
