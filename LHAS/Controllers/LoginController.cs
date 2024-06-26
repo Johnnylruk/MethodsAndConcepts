@@ -72,10 +72,8 @@ public class LoginController : Controller
                 _staffSession.CreateLoginSession(staff);
                 return RedirectToAction("Index", "Home");
             }
-
+            
             TempData["ErrorMessage"] = "Login and/or password invalid";
-
-            TempData["ErrorMessage"] = $"Login and/or password invalid";
             return View("Index");
         }
         catch (Exception error)
