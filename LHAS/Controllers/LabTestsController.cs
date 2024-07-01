@@ -26,7 +26,7 @@ public class LabTestsController : Controller
     public IActionResult Index()
     {
         var Staff = _staffSession.GetLoginSession();
-        if (Staff.Access == RoleAccessEnum.Doctor)
+        if (Staff.StaffType == RoleAccessEnum.Doctor)
         {
             var labTests = _labTestsRepository.GetAllLabTests()
                 .Where(ap => ap.StaffId == Staff.StaffId)
@@ -36,7 +36,7 @@ public class LabTestsController : Controller
             {
                 ViewBag.Doctor = "Doctor";
                 ViewBag.Staff = Staff.Name;
-                ViewBag.Access = Staff.Access;
+                ViewBag.Access = Staff.StaffType;
                 return View(labTests);
             }
             TempData["ErrorMessage"] = "You do not have any Laboratory Test";
@@ -45,7 +45,7 @@ public class LabTestsController : Controller
 
         List<LabTestsModel> ListAllLabTests = _labTestsRepository.GetAllLabTests();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(ListAllLabTests);
     }
 
@@ -54,7 +54,7 @@ public class LabTestsController : Controller
         var staff = _staffSession.GetLoginSession();
         var patient = _patientRepository.GetPatientById(id);
         ViewBag.Staff = staff.Name;
-        ViewBag.Access = staff.Access;
+        ViewBag.Access = staff.StaffType;
 
         var labTest = new LabTestsModel()
         {
@@ -82,11 +82,11 @@ public class LabTestsController : Controller
             if (labTestsModel != null)
             {
                 ViewBag.Staff = Staff.Name;
-                ViewBag.Access = Staff.Access;
+                ViewBag.Access = Staff.StaffType;
                 return View(labTestsModel);
             }
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Access = Staff.StaffType;
             return RedirectToAction("Index", "Home");
         }
         catch (Exception error)
@@ -105,11 +105,11 @@ public class LabTestsController : Controller
             if (labTestsModel != null)
             {
                 ViewBag.Staff = Staff.Name;
-                ViewBag.Access = Staff.Access;
+                ViewBag.Access = Staff.StaffType;
                 return View(labTestsModel);
             }
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Access = Staff.StaffType;
             return RedirectToAction("Index", "Home");
         }
         catch (Exception error)

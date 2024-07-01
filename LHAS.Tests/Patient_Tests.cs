@@ -85,7 +85,7 @@ public class Patient_Tests
         var appointmentList = new List<AppointmentModel>();
         var patient = CreatePatient();
         var staff = CreateStaff();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
 
         foreach (var appointment in CreateListOfAppointments())
         {
@@ -114,7 +114,7 @@ public class Patient_Tests
         var patientList = CreateListOfPatients();
         var appointmentList = new List<AppointmentModel>();
         var staff = CreateStaff();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
 
         foreach (var appointment in CreateListOfAppointments())
         {

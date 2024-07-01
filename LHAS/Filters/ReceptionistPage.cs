@@ -26,7 +26,7 @@ public class ReceptionistPage : ActionFilterAttribute
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Login" }, { "action", "Index" } });
             }
 
-            if (staffModel.Access != RoleAccessEnum.Administrator && staffModel.Access != RoleAccessEnum.Receptionist)
+            if (staffModel.StaffType != RoleAccessEnum.Administrator && staffModel.StaffType != RoleAccessEnum.Receptionist)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary{{"controller", "Restrict"}, {"action", "Index"}});
             }

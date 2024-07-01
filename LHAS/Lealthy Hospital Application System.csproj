@@ -34,6 +34,7 @@
       <_ContentIncludedByDefault Remove="LHAS.Tests\obj\LHAS.Tests.csproj.nuget.dgspec.json" />
       <_ContentIncludedByDefault Remove="LHAS.Tests\obj\project.assets.json" />
       <_ContentIncludedByDefault Remove="LHAS.Tests\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Views\Shared\Components\Menu\Default.cshtml" />
     </ItemGroup>
 
 </Project>

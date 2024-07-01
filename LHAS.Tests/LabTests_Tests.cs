@@ -72,7 +72,7 @@ public class LabTests_Tests
         //Arrange
         var staff = CreateStaff();
         var labTestsList = CreateLabTestsList();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
         _labTestsRepository.Setup(x => x.GetAllLabTests()).Returns(labTestsList);
         _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
         
@@ -90,7 +90,7 @@ public class LabTests_Tests
         var httpContext = new DefaultHttpContext();
         var staff = CreateStaff();
         var labTestsList = CreateLabTestsList();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
         staff.StaffId = 10;
         _labTestsRepository.Setup(x => x.GetAllLabTests()).Returns(labTestsList);
         _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);

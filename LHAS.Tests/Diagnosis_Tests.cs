@@ -72,7 +72,7 @@ public class Diagnosis_Tests
         //Arrange
         var staff = CreateStaff();
         var diagnosisList = CreateDiagnosisList();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
         _diagnosisRepository.Setup(x => x.GetAllDiagnosis()).Returns(diagnosisList);
         _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
         
@@ -90,7 +90,7 @@ public class Diagnosis_Tests
         var httpContext = new DefaultHttpContext();
         var staff = CreateStaff();
         var diagnosisList = CreateDiagnosisList();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
         staff.StaffId = 10;
         _diagnosisRepository.Setup(x => x.GetAllDiagnosis()).Returns(diagnosisList);
         _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);

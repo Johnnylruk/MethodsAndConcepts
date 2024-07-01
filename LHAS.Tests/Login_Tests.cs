@@ -175,7 +175,7 @@ public class Login_Tests
             Mobile = "784578965",
             Address = "Some Address",
             DateOfBirth = DateTime.Today,
-            Access = RoleAccessEnum.Administrator,
+            StaffType = RoleAccessEnum.Administrator,
             Login = "TestAdmin",
             Password = BCrypt.Net.BCrypt.HashPassword("TestAdmin@123") 
         };

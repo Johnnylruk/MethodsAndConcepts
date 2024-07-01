@@ -26,7 +26,7 @@ public class NotNursePage : ActionFilterAttribute
             context.Result = new RedirectToRouteResult(new RouteValueDictionary{{"controller" , "Login"} , {"action" , "Index"}});
         }
 
-        if (staffModel.Access == RoleAccessEnum.Nurse)
+        if (staffModel.StaffType == RoleAccessEnum.Nurse)
         {
             context.Result = new RedirectToRouteResult(new RouteValueDictionary{{"controller" , "Restrict"} , {"action" , "Index"}});
         }

@@ -26,8 +26,8 @@ public class DoctorPage : ActionFilterAttribute
                     { { "controller", "Login" }, { "action", "Index" } });
             }
 
-            if (staffModel.Access != RoleAccessEnum.Administrator && staffModel.Access != RoleAccessEnum.Doctor &&
-                staffModel.Access != RoleAccessEnum.Nurse)
+            if (staffModel.StaffType != RoleAccessEnum.Administrator && staffModel.StaffType != RoleAccessEnum.Doctor &&
+                staffModel.StaffType != RoleAccessEnum.Nurse)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary
                     { { "controller", "Restrict" }, { "action", "Index" } });

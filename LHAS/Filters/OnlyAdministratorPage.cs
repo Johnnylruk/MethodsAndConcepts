@@ -25,7 +25,7 @@ public class OnlyAdministratorPage : ActionFilterAttribute
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary{{"controller", "Login"}, {"action", "Index"}});
             }
 
-            if (staff.Access != RoleAccessEnum.Administrator)
+            if (staff.StaffType != RoleAccessEnum.Administrator)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary{{"controller", "Restrict"}, {"action", "Index"}});
             }

@@ -31,19 +31,19 @@ public class AppointmentController : Controller
         List<AppointmentModel> ListAppointments = _appointmentRepository.GetAllAppointments();
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(ListAppointments);
     }
 
     public IActionResult CreateAppointment()
     {
         List<StaffModel> GetDoctors = _staffRepository.GetAllStaff()
-            .Where(x => x.Access == RoleAccessEnum.Doctor).ToList();
+            .Where(x => x.StaffType == RoleAccessEnum.Doctor).ToList();
         List<PatientModel> GetPatients = _patientRepository.GetAllPatients();
         
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         ViewBag.Doctors = GetDoctors;
         ViewBag.Patients = GetPatients;
 
@@ -54,11 +54,11 @@ public class AppointmentController : Controller
         {
             AppointmentModel getAppointmentModel = _appointmentRepository.GetAppointmentById(id);
             List<StaffModel> GetDoctors = _staffRepository.GetAllStaff()
-                .Where(x => x.Access == RoleAccessEnum.Doctor).ToList();
+                .Where(x => x.StaffType == RoleAccessEnum.Doctor).ToList();
             List<PatientModel> GetPatients = _patientRepository.GetAllPatients();
             var Staff = _staffSession.GetLoginSession();
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Access = Staff.StaffType;
             
             ViewBag.Doctors = GetDoctors;
             ViewBag.Patients = GetPatients;
@@ -70,7 +70,7 @@ public class AppointmentController : Controller
         AppointmentModel appointmentModel = _appointmentRepository.GetAppointmentById(id);
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(appointmentModel);
     }
     

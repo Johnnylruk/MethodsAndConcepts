@@ -153,7 +153,7 @@ public class Staff_Tests
             Mobile = staffNoPwd.Mobile,
             Address = staffNoPwd.Address,
             DateOfBirth = staffNoPwd.DateOfBirth,
-            Access = staffNoPwd.Access,
+            StaffType = staffNoPwd.Access,
             Login = staffNoPwd.Login
         };
 

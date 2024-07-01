@@ -26,7 +26,7 @@ public class DiagnosisController : Controller
     {
         
         var Staff = _staffSession.GetLoginSession();
-        if (Staff.Access == RoleAccessEnum.Doctor)
+        if (Staff.StaffType == RoleAccessEnum.Doctor)
         {
             var diagnosis = _diagnosisRepository.GetAllDiagnosis()
                 .Where(ap => ap.StaffId == Staff.StaffId)
@@ -36,14 +36,14 @@ public class DiagnosisController : Controller
             {
                 ViewBag.Doctor = "Doctor";
                 ViewBag.Staff = Staff.Name;
-                ViewBag.Access = Staff.Access;
+                ViewBag.Access = Staff.StaffType;
                 return View(diagnosis);    
             }
             TempData["ErrorMessage"] = "You do not have any Diagnosis.";
             return RedirectToAction("Index", "Home");
         }
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         List<DiagnosisModel> ListAll = _diagnosisRepository.GetAllDiagnosis();
         return View(ListAll);
     }
@@ -65,7 +65,7 @@ public class DiagnosisController : Controller
         ViewBag.PatientName = diagnosisModel.PatientName;
         ViewBag.StaffName = diagnosisModel.StaffName;
         ViewBag.Staff = staffSession.Name;
-        ViewBag.Access = staffSession.Access;
+        ViewBag.Access = staffSession.StaffType;
         
         return View(diagnosisModel);
     }
@@ -80,11 +80,11 @@ public class DiagnosisController : Controller
             if (diagnosisModel != null)
             {
                 ViewBag.Staff = Staff.Name;
-                ViewBag.Access = Staff.Access;
+                ViewBag.Access = Staff.StaffType;
                 return View(diagnosisModel);    
             }
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Access = Staff.StaffType;
             return RedirectToAction("Index", "Home");
         }
         catch (Exception error)
@@ -102,12 +102,12 @@ public class DiagnosisController : Controller
             if (diagnosisModel != null)
             {
                 ViewBag.Staff = Staff.Name;
-                ViewBag.Access = Staff.Access;
+                ViewBag.Access = Staff.StaffType;
                 return View(diagnosisModel); 
             }
            
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Access = Staff.StaffType;
             return RedirectToAction("Index", "Home");
         }
         catch (Exception error)

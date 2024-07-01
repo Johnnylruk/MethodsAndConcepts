@@ -25,7 +25,7 @@ public class StaffController : Controller
         var Staff = _staffSession.GetLoginSession();
         List<StaffModel> ListAllStaff = _staffRepository.GetAllStaff();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(ListAllStaff);    
     }
 
@@ -33,7 +33,7 @@ public class StaffController : Controller
     {
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View();
     }
 
@@ -41,7 +41,7 @@ public class StaffController : Controller
     {
          var Staff = _staffSession.GetLoginSession();
                     ViewBag.Staff = Staff.Name;
-                    ViewBag.Access = Staff.Access;
+                    ViewBag.Access = Staff.StaffType;
                     
         StaffModel staffId = _staffRepository.GetStaffById(id);
         var StaffWithoutPassword = new StaffWithoutPwdModel()
@@ -52,7 +52,7 @@ public class StaffController : Controller
             Mobile = staffId.Mobile,
             Address = staffId.Address,
             DateOfBirth = staffId.DateOfBirth,
-            Access = staffId.Access,
+            Access = staffId.StaffType,
             Login = staffId.Login
         };
         return View(StaffWithoutPassword);
@@ -62,7 +62,7 @@ public class StaffController : Controller
         StaffModel staffId = _staffRepository.GetStaffById(id);
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(staffId);
     }
     
@@ -116,7 +116,7 @@ public class StaffController : Controller
         {
             var Staff = _staffSession.GetLoginSession();
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Access = Staff.StaffType;
             
             StaffModel duplicateEmailStaff = _staffRepository.GetAllStaff()
                 .FirstOrDefault(x => x.Email == staffModel.Email &&

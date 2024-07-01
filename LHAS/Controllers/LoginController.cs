@@ -35,7 +35,7 @@ public class LoginController : Controller
         if (Staff != null)
         {
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;    
+            ViewBag.Access = Staff.StaffType;    
         }
         return View();
     }
@@ -55,7 +55,7 @@ public class LoginController : Controller
                         Mobile = "784578965",
                         Address = "Some Address",
                         DateOfBirth = DateTime.Today,
-                        Access = RoleAccessEnum.Administrator,
+                        StaffType = RoleAccessEnum.Administrator,
                         Login = "TestAdmin",
                         Password = "TestAdmin@123"
                     };

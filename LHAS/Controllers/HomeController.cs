@@ -20,7 +20,7 @@ public class HomeController : Controller
     {
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View();
     }
 
@@ -34,7 +34,7 @@ public class HomeController : Controller
     {
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(Staff);
     }
 }

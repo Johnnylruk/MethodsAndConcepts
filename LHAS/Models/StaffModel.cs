@@ -26,7 +26,7 @@ public class StaffModel
     public DateTime DateOfBirth { get; set;}
     
     [Display(Name = "Staff Role")]
-    public RoleAccessEnum Access { get; set; }
+    public RoleAccessEnum StaffType { get; set; }
     public string Login { get; set; }
     public string Password { get; set; }
 

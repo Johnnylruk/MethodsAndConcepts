@@ -50,7 +50,7 @@
                 <td>@staffs.Mobile</td>
                 <td>@staffs.Address</td>
                 <td>@staffs.DateOfBirth.ToString("dd/MM/yyyy")</td>
-                <td>@Html.DisplayFor(staffItem => staffs.Access)</td>
+                <td>@Html.DisplayFor(staffItem => staffs.StaffType)</td>
                 <td>
                     <a asp-route-id="@staffs.StaffId" asp-action="UpdateStaff" asp-controller="Staff">
                         <i class="fas fa-user-edit text-warning" title="Edit Staff"></i>

@@ -23,7 +23,7 @@ public class PasswordController : Controller
         ChangePasswordModel StaffId = new ChangePasswordModel();
         StaffId.StaffId = Staff.StaffId;
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(StaffId);
     }
 

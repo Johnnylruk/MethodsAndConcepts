@@ -79,7 +79,7 @@ return displayAttribute != null ? displayAttribute.Name : role.ToString();
                             </div>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label">Role</label>
-                                <select class="form-select text-center" asp-for="Access" required
+                                <select class="form-select text-center" asp-for="StaffType" required
                                         oninvalid="this.setCustomValidity('Please select staff role.')" oninput="this.setCustomValidity('')">
                                     <option value="" disabled selected>Select</option>
                                     @foreach (var role in Enum.GetValues(typeof(RoleAccessEnum)).Cast<RoleAccessEnum>())

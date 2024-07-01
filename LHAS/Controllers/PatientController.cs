@@ -28,7 +28,7 @@ public class PatientController : Controller
     public IActionResult Index()
     {
         var staffSession = _staffSession.GetLoginSession();
-        if (staffSession.Access == RoleAccessEnum.Doctor)
+        if (staffSession.StaffType == RoleAccessEnum.Doctor)
         {
             var appointments = _appointmentRepository.GetAllAppointments()
                 .Where(ap => ap.StaffId == staffSession.StaffId)
@@ -45,7 +45,7 @@ public class PatientController : Controller
             {
                 ViewBag.Doctor = "Doctor";
                 ViewBag.Staff = staffSession.Name;
-                ViewBag.Access = staffSession.Access;
+                ViewBag.Access = staffSession.StaffType;
                 return View(distinctPatients);    
             }
             TempData["ErrorMessage"] = "You do not have any Patient.";
@@ -55,7 +55,7 @@ public class PatientController : Controller
         {
             List<PatientModel> ListPatients = _patientRepository.GetAllPatients(); 
             ViewBag.Staff = staffSession.Name;
-            ViewBag.Access = staffSession.Access;
+            ViewBag.Access = staffSession.StaffType;
             return View(ListPatients);
         }
        
@@ -64,7 +64,7 @@ public class PatientController : Controller
     public IActionResult DoctorAppointment()
     {
         var staffSession = _staffSession.GetLoginSession();
-        if (staffSession.Access == RoleAccessEnum.Doctor)
+        if (staffSession.StaffType == RoleAccessEnum.Doctor)
         {
             var appointments = _appointmentRepository.GetAllAppointments()
                 .Where(ap => ap.StaffId == staffSession.StaffId)
@@ -78,7 +78,7 @@ public class PatientController : Controller
                 .ToList();
             
             ViewBag.Staff = staffSession.Name;
-            ViewBag.Access = staffSession.Access;
+            ViewBag.Access = staffSession.StaffType;
             
             if (distinctPatients.Count != 0)
             {
@@ -95,7 +95,7 @@ public class PatientController : Controller
     {
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View();
     }
 
@@ -104,7 +104,7 @@ public class PatientController : Controller
         PatientModel patientModel = _patientRepository.GetPatientById(PatientId);
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(patientModel);
     }
     public IActionResult DeletePatient(int PatientId)
@@ -112,7 +112,7 @@ public class PatientController : Controller
         PatientModel patientModel = _patientRepository.GetPatientById(PatientId);
         var Staff = _staffSession.GetLoginSession();
         ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.Access;
+        ViewBag.Access = Staff.StaffType;
         return View(patientModel);
     }
 
@@ -123,7 +123,7 @@ public class PatientController : Controller
         {
             var Staff = _staffSession.GetLoginSession();
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Access = Staff.StaffType;
             
             PatientModel PatientDB = _patientRepository.GetAllPatients()
                 .FirstOrDefault(x => x.Email == patientModel.Email ||
@@ -160,7 +160,7 @@ public class PatientController : Controller
         {
              var Staff = _staffSession.GetLoginSession();
             ViewBag.Staff = Staff.Name;
-            ViewBag.Access = Staff.Access;
+            ViewBag.Access = Staff.StaffType;
             
             PatientModel duplicateEmailPatient = _patientRepository.GetAllPatients()
                 .FirstOrDefault(x => x.Email == patientModel.Email &&

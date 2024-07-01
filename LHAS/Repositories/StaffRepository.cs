@@ -43,7 +43,7 @@ public class StaffRepository : IStaffRepository
         StaffDb.Mobile = staffModel.Mobile;
         StaffDb.Address = staffModel.Address;
         StaffDb.DateOfBirth = staffModel.DateOfBirth;
-        StaffDb.Access = staffModel.Access;
+        StaffDb.StaffType = staffModel.Access;
         StaffDb.Login = staffModel.Login;
         
         _lhasdb.Staffs.Update(StaffDb);

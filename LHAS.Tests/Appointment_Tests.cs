@@ -85,7 +85,7 @@ public class Appointment_Tests
         var staffList = CreateStaffList();
         var patientList = CreatePatientList();
         var staff = CreateStaff();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
 
         _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
         _staffRepository.Setup(x => x.GetAllStaff()).Returns(staffList);
@@ -172,7 +172,7 @@ public class Appointment_Tests
         var patientList = CreatePatientList();
         var appointment = CreateAppointment();
         var staff = CreateStaff();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
 
         _appointmentRepository.Setup(x => x.GetAppointmentById(appointment.AppointmentId)).Returns(appointment);
         _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
@@ -261,7 +261,7 @@ public class Appointment_Tests
         var patientList = CreatePatientList();
         var appointment = CreateAppointment();
         var staff = CreateStaff();
-        staff.Access = RoleAccessEnum.Doctor;
+        staff.StaffType = RoleAccessEnum.Doctor;
 
         _appointmentRepository.Setup(x => x.GetAppointmentById(appointment.AppointmentId)).Returns(appointment);
         _staffSession.Setup(x => x.GetLoginSession()).Returns(staff);
