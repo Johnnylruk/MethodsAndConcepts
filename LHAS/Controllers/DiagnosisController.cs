@@ -26,6 +26,8 @@ public class DiagnosisController : Controller
     {
         
         var Staff = _staffSession.GetLoginSession();
+        if (Staff != null)
+        {
         if (Staff.StaffType == RoleAccessEnum.Doctor)
         {
             var diagnosis = _diagnosisRepository.GetAllDiagnosis()
@@ -42,10 +44,12 @@ public class DiagnosisController : Controller
             TempData["ErrorMessage"] = "You do not have any Diagnosis.";
             return RedirectToAction("Index", "Home");
         }
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.StaffType;
-        List<DiagnosisModel> ListAll = _diagnosisRepository.GetAllDiagnosis();
-        return View(ListAll);
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.StaffType;
+            List<DiagnosisModel> ListAll = _diagnosisRepository.GetAllDiagnosis();
+            return View(ListAll);    
+        }
+        return RedirectToAction("Index", "Login");
     }
 
     public IActionResult CreateDiagnosis(int id)

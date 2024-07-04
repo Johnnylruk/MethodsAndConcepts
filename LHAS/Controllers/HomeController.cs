@@ -19,9 +19,15 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var Staff = _staffSession.GetLoginSession();
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.StaffType;
-        return View();
+        if (Staff != null)
+        {
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.StaffType;
+            return View();    
+        }
+
+        return RedirectToAction("Index", "Login");
+
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

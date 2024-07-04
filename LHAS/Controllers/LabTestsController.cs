@@ -26,27 +26,30 @@ public class LabTestsController : Controller
     public IActionResult Index()
     {
         var Staff = _staffSession.GetLoginSession();
-        if (Staff.StaffType == RoleAccessEnum.Doctor)
+        if (Staff != null)
         {
-            var labTests = _labTestsRepository.GetAllLabTests()
-                .Where(ap => ap.StaffId == Staff.StaffId)
-                .ToList();
-
-            if (labTests.Count != 0)
+            if (Staff.StaffType == RoleAccessEnum.Doctor)
             {
-                ViewBag.Doctor = "Doctor";
+                var labTests = _labTestsRepository.GetAllLabTests()
+                    .Where(ap => ap.StaffId == Staff.StaffId)
+                    .ToList();
+
+                if (labTests.Count != 0)
+                {
+                    ViewBag.Doctor = "Doctor";
+                    ViewBag.Staff = Staff.Name;
+                    ViewBag.Access = Staff.StaffType;
+                    return View(labTests);
+                }
+                TempData["ErrorMessage"] = "You do not have any Laboratory Test";
+                return RedirectToAction("Index", "Home");
+            }
+                List<LabTestsModel> ListAllLabTests = _labTestsRepository.GetAllLabTests();
                 ViewBag.Staff = Staff.Name;
                 ViewBag.Access = Staff.StaffType;
-                return View(labTests);
+                return View(ListAllLabTests);    
             }
-            TempData["ErrorMessage"] = "You do not have any Laboratory Test";
-            return RedirectToAction("Index", "Home");
-        }
-
-        List<LabTestsModel> ListAllLabTests = _labTestsRepository.GetAllLabTests();
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.StaffType;
-        return View(ListAllLabTests);
+        return RedirectToAction("Index", "Login");
     }
 
     public IActionResult CreateLabTest(int id)

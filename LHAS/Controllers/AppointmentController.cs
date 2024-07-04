@@ -30,9 +30,14 @@ public class AppointmentController : Controller
     {
         List<AppointmentModel> ListAppointments = _appointmentRepository.GetAllAppointments();
         var Staff = _staffSession.GetLoginSession();
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.StaffType;
-        return View(ListAppointments);
+        if (Staff != null)
+        {
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.StaffType;
+            return View(ListAppointments);    
+        }
+
+        return RedirectToAction("Index", "Login");
     }
 
     public IActionResult CreateAppointment()

@@ -23,10 +23,15 @@ public class StaffController : Controller
     public IActionResult Index()
     {
         var Staff = _staffSession.GetLoginSession();
-        List<StaffModel> ListAllStaff = _staffRepository.GetAllStaff();
-        ViewBag.Staff = Staff.Name;
-        ViewBag.Access = Staff.StaffType;
-        return View(ListAllStaff);    
+        if (Staff != null)
+        {
+            List<StaffModel> ListAllStaff = _staffRepository.GetAllStaff();
+            ViewBag.Staff = Staff.Name;
+            ViewBag.Access = Staff.StaffType;
+            return View(ListAllStaff);   
+        }
+
+        return RedirectToAction("Index", "Login");
     }
 
     public IActionResult CreateStaff()
